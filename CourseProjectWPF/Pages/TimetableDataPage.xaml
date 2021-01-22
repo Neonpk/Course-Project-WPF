@@ -1,0 +1,158 @@
+﻿<Page x:Class="CourseProjectWPF.Pages.TimetableDataPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProjectWPF.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TimetableDataPage">
+
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+
+            <Setter Property="Background" Value="#50C878"/>
+            <Setter Property="FontSize" Value="25"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#50C878" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#49ba6e" />
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <Style x:Key="Body_Content_DataGrid_Centering" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+
+
+
+
+    <DockPanel>
+        
+        
+        <DockPanel Margin="10" DockPanel.Dock="Top">
+            <Label Content="Расписание" FontSize="30" />
+            <Button Click="AddNewRow_ButtonClick" Content="Добавить запись" HorizontalAlignment="Right" Width="200" DockPanel.Dock="Right"/>
+        </DockPanel>
+
+
+        <DockPanel Margin="10" DockPanel.Dock="Top">
+            <Label FontSize="18" Content="Применить фильтр" DockPanel.Dock="Top"/>
+
+            <ComboBox x:Name="comboboxFilterType" SelectedIndex="0">
+                <ComboBoxItem>По номеру группы</ComboBoxItem>
+                <ComboBoxItem>По номеру аудитории</ComboBoxItem>
+                <ComboBoxItem>По имени преподавателя</ComboBoxItem>
+                <ComboBoxItem>По названию дисциплины</ComboBoxItem>
+                <ComboBoxItem>По номеру пары</ComboBoxItem>
+                <ComboBoxItem>По дню недели</ComboBoxItem>
+                <ComboBoxItem>По неделе по счету</ComboBoxItem>
+            </ComboBox>
+
+            <TextBox 
+                TextChanged="textBoxFilter_TextChanged"
+                FontSize="25"
+                DockPanel.Dock="Right" x:Name="textBoxFilter"/>
+        </DockPanel>
+
+        <DataGrid DockPanel.Dock="Top" AutoGenerateColumns="False"
+                  ItemsSource="{Binding Timetable}" 
+                  IsReadOnly="True" Margin="10"
+                  CellStyle="{StaticResource Body_Content_DataGrid_Centering}"
+                  SelectedItem="{Binding CurrentRow}"
+                  x:Name="dataGridTimetable" 
+                  Loaded="dataGridTimetable_Loaded">
+
+            <DataGrid.Columns>
+                
+                <DataGridTextColumn Header="Номер группы" Binding="{Binding group_id}" />
+                <DataGridTextColumn Header="День недели" Binding="{Binding days_week.week_name}" />
+                <DataGridTextColumn Header="Неделя по счету" Binding="{Binding week_account}" />
+
+                <DataGridTemplateColumn Header="Номер аудитории">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding room}" />
+                                <Run Text="("/>
+                                <Run Text="{Binding audiences.type}"/>
+                                <Run Text=")"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Преподаватель" MinWidth="500">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding teachers.name}"/>
+                                <Run Text="("/>
+                                <Run Text="{Binding teachers.departments.department_name}"/>
+                                <Run Text=")"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTextColumn Header="Дисциплина" Binding="{Binding disciplines.discipline_name}" MinWidth="450"/>
+                
+                <DataGridTemplateColumn Header="Номер пары" MinWidth="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding lesson_number}" />
+                                <Run Text="("/>
+                                <Run Text="{Binding dir_lessons.start_time}"/>
+                                <Run Text="-"/>
+                                <Run Text="{Binding dir_lessons.end_time}"/>
+                                <Run Text=")"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DockPanel VerticalAlignment="Center">
+                                <Button Click="ChangeData_ButtonClick" FontSize="16" Content="Изменить" DockPanel.Dock="Top" Margin="0 2"/>
+                                <Button Click="RemoveRow_ButtonClick" FontSize="16" Content="Удалить" DockPanel.Dock="Top" Margin="0 2"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+            
+        </DataGrid>
+
+    </DockPanel>
+
+
+</Page>

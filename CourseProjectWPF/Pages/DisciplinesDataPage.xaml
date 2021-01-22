@@ -1,0 +1,133 @@
+﻿<Page x:Class="CourseProjectWPF.Pages.DisciplinesDataPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProjectWPF.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DisciplinesDataPage">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+
+            <Setter Property="Background" Value="#50C878"/>
+            <Setter Property="FontSize" Value="23"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#50C878" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#49ba6e" />
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <CollectionViewSource x:Key="collectionViewSource" 
+                              Source="{Binding Disciplines}" Filter="CollectionViewSource_Filter"/>
+
+    </Page.Resources>
+
+    <DockPanel>
+
+        <DockPanel Margin="10" DockPanel.Dock="Top">
+            <Label Content="Информация о дисциплинах" FontSize="30" />
+            <Button Click="AddNewRoom_ButtonClick"  Content="Добавить новую" HorizontalAlignment="Right" Width="200" DockPanel.Dock="Right"/>
+        </DockPanel>
+
+        <DockPanel Margin="10" DockPanel.Dock="Top">
+            <Label FontSize="18" Content="Применить фильтр" DockPanel.Dock="Top"/>
+
+            <ComboBox x:Name="comboboxFilterType" SelectedIndex="0">
+                <ComboBoxItem>По дисциплине</ComboBoxItem>
+                <ComboBoxItem>По кафедре</ComboBoxItem>
+            </ComboBox>
+
+            <TextBox 
+                FontSize="25"
+                DockPanel.Dock="Right" x:Name="textBoxFilter" TextChanged="textBoxFilter_TextChanged"/>
+        </DockPanel>
+
+        <DockPanel Margin="10" DockPanel.Dock="Top">
+            <Label FontSize="18" Content="Применить сортировку" DockPanel.Dock="Top"/>
+
+            <StackPanel Orientation="Horizontal">
+
+
+                <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged" x:Name="comboboxFilterSortModeType" SelectedIndex="0">
+                    <ComboBoxItem>По возрастанию</ComboBoxItem>
+                    <ComboBoxItem>По убыванию</ComboBoxItem>
+                </ComboBox>
+
+                <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged" x:Name="comboboxFilterSortFieldType" SelectedIndex="0">
+                    <ComboBoxItem Tag="discipline_name">По дисциплине</ComboBoxItem>
+                    <ComboBoxItem Tag="departments.department_name">По кафедре</ComboBoxItem>
+                </ComboBox>
+
+            </StackPanel>
+
+        </DockPanel>
+
+
+        <ListBox
+            x:Name="listboxDisciplines"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            Margin="10" ItemsSource="{Binding Source={StaticResource collectionViewSource} }" SelectedItem="{Binding SelectedDiscipline}" DockPanel.Dock="Top">
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+
+                    <StackPanel Width="505" Height="480" Margin="10">
+
+
+                        <Image Width="200" Height="200" 
+                               Source="../Images/book.png" Stretch="Uniform" Margin="0 20 0 0"/>
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock FontSize="15" TextWrapping="Wrap" Text="Дисциплина:" Margin="0 20 0 0"/>
+                            <TextBlock FontSize="15" TextDecorations="underline" TextWrapping="Wrap" Margin="0 20 0 0"
+                                       Text="{Binding discipline_name}" Grid.Column="1"/>
+
+                            <TextBlock FontSize="15" TextWrapping="Wrap" Text="Кафедра: " Grid.Row="1"/>
+                            <TextBlock FontSize="15" TextDecorations="underline" TextWrapping="Wrap"
+                                       Text="{Binding departments.department_name}" Grid.Row="1" Grid.Column="1"/>
+
+                        </Grid>
+
+                        <Button Margin="0 10 0 0" Content="Изменить" Click="ChangeDisciplineData_ButtonClick"/>
+                        <Button Margin="0 10 0 0" Content="Удалить" Click="RemoveDisciplineData_ButtonClick"/>
+
+                    </StackPanel>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Page>

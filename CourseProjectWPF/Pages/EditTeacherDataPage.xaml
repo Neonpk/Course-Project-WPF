@@ -1,0 +1,122 @@
+﻿<Page x:Class="CourseProjectWPF.Pages.EditTeacherDataPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProjectWPF.Pages"
+      xmlns:rules="clr-namespace:CourseProjectWPF.ValidationRules"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditTeacherDataPage">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+
+            <Setter Property="Background" Value="#50C878"/>
+            <Setter Property="FontSize" Value="23"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#50C878" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#49ba6e" />
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+    </Page.Resources>
+
+
+    <StackPanel Margin="10">
+
+        <Label Content="Изменить/Добавить преподавателя" FontSize="30"/>
+
+        <Label Content="ФИО Преподавателя" FontSize="20"/>
+        
+        <TextBox FontSize="25" x:Name="textBoxFullname" Validation.Error="textBoxFullname_Error">
+            <TextBox.Text>
+                <Binding Path="CurrentTeacher.name" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <rules:NamePersonRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+        <Label Content="Должность" FontSize="20"/>
+        
+        <ComboBox ItemsSource="{Binding Positions}" Validation.Error="textBoxFullname_Error">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding position_name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentTeacher.positions"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+            
+        </ComboBox>
+
+        <Label Content="Звание" FontSize="20"/>
+        <ComboBox ItemsSource="{Binding Ranks}" Validation.Error="textBoxFullname_Error">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding rank_name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentTeacher.ranks"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+            
+        </ComboBox>
+
+        <Label Content="Кафедра" FontSize="20"/>
+        
+        <ComboBox ItemsSource="{Binding Departments}" Validation.Error="textBoxFullname_Error">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding department_name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentTeacher.departments"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+            
+        </ComboBox>
+
+
+        <Button Content="Отмена" Margin="10" Click="Cancel_ButtonClick"/>
+        <Button x:Name="buttonSaveIntoDB" Content="Сохранить" Margin="10 0 10 10" Click="SaveIntoDataBase_ButtonClick"/>
+
+    </StackPanel>
+    
+</Page>
