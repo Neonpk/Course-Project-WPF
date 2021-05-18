@@ -104,6 +104,8 @@
                 <TreeViewItem Header="Кафедры" x:Name="treeViewItemDepartments" Selected="TreeViewItem_Selected"/>
                 <TreeViewItem Header="Дисциплины" x:Name="treeViewItemDisciplines" Selected="TreeViewItem_Selected"/>
 
+                <TreeViewItem Header="Примечания для изм." x:Name="treeViewItemChangesTimetableDesc" Selected="TreeViewItem_Selected"/>
+
 
             </TreeViewItem>
 

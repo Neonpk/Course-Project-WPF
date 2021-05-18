@@ -12,7 +12,7 @@ namespace CourseProjectWPF.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class changedescription
+    public partial class changedescription : ICloneable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public changedescription()
@@ -25,5 +25,14 @@ namespace CourseProjectWPF.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<timetable_changes> timetable_changes { get; set; }
+
+        public object Clone()
+        {
+            return new changedescription
+            {
+                timetable_changes = this.timetable_changes,
+                description = this.description
+            };
+        }
     }
 }

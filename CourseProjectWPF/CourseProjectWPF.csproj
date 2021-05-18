@@ -148,11 +148,17 @@
     <Compile Include="Pages\AudiencesInfoPage.xaml.cs">
       <DependentUpon>AudiencesInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ChangeNotesDataPage.xaml.cs">
+      <DependentUpon>ChangeNotesDataPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DepartmentsDataPage.xaml.cs">
       <DependentUpon>DepartmentsDataPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\DisciplinesDataPage.xaml.cs">
       <DependentUpon>DisciplinesDataPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EditChangeNotesDataPage.xaml.cs">
+      <DependentUpon>EditChangeNotesDataPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\EditDepartmentDataPage.xaml.cs">
       <DependentUpon>EditDepartmentDataPage.xaml</DependentUpon>
@@ -229,11 +235,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ChangeNotesDataPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\DepartmentsDataPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\DisciplinesDataPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\EditChangeNotesDataPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

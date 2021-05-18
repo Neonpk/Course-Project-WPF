@@ -70,6 +70,12 @@ namespace CourseProjectWPF.Windows
 
                     break;
 
+                case "treeViewItemChangesTimetableDesc":
+
+                    page = new ChangeNotesDataPage(this);
+
+                    break;
+
             }
 
             mainFrame.Navigate(page);
