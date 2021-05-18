@@ -1,0 +1,1404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="timetable_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="audiences">
+          <Key>
+            <PropertyRef Name="room" />
+          </Key>
+          <Property Name="room" Type="int" Nullable="false" />
+          <Property Name="capacity" Type="int" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="changedescription">
+          <Key>
+            <PropertyRef Name="changedescription_id" />
+          </Key>
+          <Property Name="changedescription_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="departments">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dir_lessons">
+          <Key>
+            <PropertyRef Name="lesson_number" />
+          </Key>
+          <Property Name="lesson_number" Type="int" Nullable="false" />
+          <Property Name="start_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="end_time" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="disciplines">
+          <Key>
+            <PropertyRef Name="discipline_id" />
+          </Key>
+          <Property Name="discipline_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="discipline_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="faculties">
+          <Key>
+            <PropertyRef Name="faculty_id" />
+          </Key>
+          <Property Name="faculty_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="faculty_name" Type="nvarchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <EntityType Name="groups">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="count_people" Type="int" Nullable="false" />
+          <Property Name="id_specialty" Type="int" Nullable="false" />
+          <Property Name="id_trainform" Type="int" Nullable="false" />
+          <Property Name="id_faculty" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="positions">
+          <Key>
+            <PropertyRef Name="position_id" />
+          </Key>
+          <Property Name="position_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="position_name" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ranks">
+          <Key>
+            <PropertyRef Name="rank_id" />
+          </Key>
+          <Property Name="rank_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rank_name" Type="nvarchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <EntityType Name="specialties">
+          <Key>
+            <PropertyRef Name="specialty_id" />
+          </Key>
+          <Property Name="specialty_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="specialty_name" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="faculty_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="teachers">
+          <Key>
+            <PropertyRef Name="teacher_id" />
+          </Key>
+          <Property Name="teacher_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="position_id" Type="int" Nullable="false" />
+          <Property Name="rank_id" Type="int" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="timetable">
+          <Key>
+            <PropertyRef Name="timetable_id" />
+          </Key>
+          <Property Name="timetable_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="room" Type="int" Nullable="false" />
+          <Property Name="teacher_id" Type="int" Nullable="false" />
+          <Property Name="discipline_id" Type="int" Nullable="false" />
+          <Property Name="lesson_number" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="evenweek" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="timetable_changes">
+          <Key>
+            <PropertyRef Name="timetablechange_id" />
+          </Key>
+          <Property Name="timetablechange_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="timetable_id" Type="int" Nullable="false" />
+          <Property Name="changedescription_id" Type="int" Nullable="false" />
+          <Property Name="room" Type="int" Nullable="false" />
+          <Property Name="teacher_id" Type="int" Nullable="false" />
+          <Property Name="discipline_id" Type="int" Nullable="false" />
+          <Property Name="lesson_number" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="evenweek" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="train_types">
+          <Key>
+            <PropertyRef Name="traintype_id" />
+          </Key>
+          <Property Name="traintype_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'timetable_db.dbo.audience_loading' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="audience_loading">
+          <Key>
+            <PropertyRef Name="timetableId" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="evenweek" />
+            <PropertyRef Name="teacher_name" />
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="timetableId" Type="int" Nullable="false" />
+          <Property Name="discipline_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="room" Type="nvarchar" MaxLength="40" />
+          <Property Name="lesson_number" Type="varchar" MaxLength="83" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="evenweek" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="teacher_name" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="department_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="position_name" Type="nvarchar" MaxLength="25" />
+          <Property Name="rank_name" Type="nvarchar" MaxLength="75" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="group_count_people" Type="int" />
+          <Property Name="specialty_name" Type="nvarchar" MaxLength="75" />
+          <Property Name="faculty_name" Type="nvarchar" MaxLength="75" />
+          <Property Name="train_type_name" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'timetable_db.dbo.audience_msg' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="audience_msg">
+          <Key>
+            <PropertyRef Name="room" />
+            <PropertyRef Name="capacity" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="full_audience" />
+          </Key>
+          <Property Name="room" Type="int" Nullable="false" />
+          <Property Name="capacity" Type="int" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="full_audience" Type="nvarchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'timetable_db.dbo.lesson_msg' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="lesson_msg">
+          <Key>
+            <PropertyRef Name="lesson_number" />
+            <PropertyRef Name="start_time" />
+            <PropertyRef Name="end_time" />
+            <PropertyRef Name="full_lesson" />
+          </Key>
+          <Property Name="lesson_number" Type="int" Nullable="false" />
+          <Property Name="start_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="end_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="full_lesson" Type="varchar" MaxLength="83" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="teachers_hours">
+          <Key>
+            <PropertyRef Name="teacherName" />
+            <PropertyRef Name="teacherId" />
+          </Key>
+          <Property Name="teacherName" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="teacher_departmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="teacher_positionName" Type="nvarchar" MaxLength="25" />
+          <Property Name="teacher_rankName" Type="nvarchar" MaxLength="75" />
+          <Property Name="teacher_workhours" Type="numeric" Precision="13" Scale="1" />
+          <Property Name="teacherId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_disciplines_departments">
+          <End Role="departments" Type="Self.departments" Multiplicity="1" />
+          <End Role="disciplines" Type="Self.disciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departments">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="disciplines">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groups_faculties">
+          <End Role="faculties" Type="Self.faculties" Multiplicity="1" />
+          <End Role="groups" Type="Self.groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="faculties">
+              <PropertyRef Name="faculty_id" />
+            </Principal>
+            <Dependent Role="groups">
+              <PropertyRef Name="id_faculty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groups_specialties">
+          <End Role="specialties" Type="Self.specialties" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="groups" Type="Self.groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialties">
+              <PropertyRef Name="specialty_id" />
+            </Principal>
+            <Dependent Role="groups">
+              <PropertyRef Name="id_specialty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groups_train_types">
+          <End Role="train_types" Type="Self.train_types" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="groups" Type="Self.groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="train_types">
+              <PropertyRef Name="traintype_id" />
+            </Principal>
+            <Dependent Role="groups">
+              <PropertyRef Name="id_trainform" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_specialties_faculties2">
+          <End Role="faculties" Type="Self.faculties" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="specialties" Type="Self.specialties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="faculties">
+              <PropertyRef Name="faculty_id" />
+            </Principal>
+            <Dependent Role="specialties">
+              <PropertyRef Name="faculty_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teachers_departments">
+          <End Role="departments" Type="Self.departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="teachers" Type="Self.teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departments">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="teachers">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teachers_positions">
+          <End Role="positions" Type="Self.positions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="teachers" Type="Self.teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="positions">
+              <PropertyRef Name="position_id" />
+            </Principal>
+            <Dependent Role="teachers">
+              <PropertyRef Name="position_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teachers_ranks">
+          <End Role="ranks" Type="Self.ranks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="teachers" Type="Self.teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ranks">
+              <PropertyRef Name="rank_id" />
+            </Principal>
+            <Dependent Role="teachers">
+              <PropertyRef Name="rank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_audiences">
+          <End Role="audiences" Type="Self.audiences" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="audiences">
+              <PropertyRef Name="room" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="room" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_audiences">
+          <End Role="audiences" Type="Self.audiences" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="audiences">
+              <PropertyRef Name="room" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="room" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_changedescription">
+          <End Role="changedescription" Type="Self.changedescription" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="changedescription">
+              <PropertyRef Name="changedescription_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="changedescription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_dir_lessons">
+          <End Role="dir_lessons" Type="Self.dir_lessons" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dir_lessons">
+              <PropertyRef Name="lesson_number" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="lesson_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_disciplines">
+          <End Role="disciplines" Type="Self.disciplines" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="disciplines">
+              <PropertyRef Name="discipline_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="discipline_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_teachers">
+          <End Role="teachers" Type="Self.teachers" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teachers">
+              <PropertyRef Name="teacher_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="teacher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_timetable">
+          <End Role="timetable" Type="Self.timetable" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timetable">
+              <PropertyRef Name="timetable_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="timetable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_dir_lessons">
+          <End Role="dir_lessons" Type="Self.dir_lessons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dir_lessons">
+              <PropertyRef Name="lesson_number" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="lesson_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_disciplines">
+          <End Role="disciplines" Type="Self.disciplines" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="disciplines">
+              <PropertyRef Name="discipline_id" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="discipline_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_groups">
+          <End Role="groups" Type="Self.groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groups">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_teachers">
+          <End Role="teachers" Type="Self.teachers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teachers">
+              <PropertyRef Name="teacher_id" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="teacher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="timetable_dbModelStoreContainer">
+          <EntitySet Name="audiences" EntityType="Self.audiences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="changedescription" EntityType="Self.changedescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="departments" EntityType="Self.departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dir_lessons" EntityType="Self.dir_lessons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="disciplines" EntityType="Self.disciplines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="faculties" EntityType="Self.faculties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="groups" EntityType="Self.groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="positions" EntityType="Self.positions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ranks" EntityType="Self.ranks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="specialties" EntityType="Self.specialties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teachers" EntityType="Self.teachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="timetable" EntityType="Self.timetable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="timetable_changes" EntityType="Self.timetable_changes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="train_types" EntityType="Self.train_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="audience_loading" EntityType="Self.audience_loading" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [audience_loading].[timetableId] AS [timetableId], 
+    [audience_loading].[discipline_name] AS [discipline_name], 
+    [audience_loading].[room] AS [room], 
+    [audience_loading].[lesson_number] AS [lesson_number], 
+    [audience_loading].[date] AS [date], 
+    [audience_loading].[evenweek] AS [evenweek], 
+    [audience_loading].[teacher_name] AS [teacher_name], 
+    [audience_loading].[department_name] AS [department_name], 
+    [audience_loading].[position_name] AS [position_name], 
+    [audience_loading].[rank_name] AS [rank_name], 
+    [audience_loading].[group_id] AS [group_id], 
+    [audience_loading].[group_count_people] AS [group_count_people], 
+    [audience_loading].[specialty_name] AS [specialty_name], 
+    [audience_loading].[faculty_name] AS [faculty_name], 
+    [audience_loading].[train_type_name] AS [train_type_name]
+    FROM [dbo].[audience_loading] AS [audience_loading]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="audience_msg" EntityType="Self.audience_msg" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [audience_msg].[room] AS [room], 
+    [audience_msg].[capacity] AS [capacity], 
+    [audience_msg].[type] AS [type], 
+    [audience_msg].[full_audience] AS [full_audience]
+    FROM [dbo].[audience_msg] AS [audience_msg]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="lesson_msg" EntityType="Self.lesson_msg" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [lesson_msg].[lesson_number] AS [lesson_number], 
+    [lesson_msg].[start_time] AS [start_time], 
+    [lesson_msg].[end_time] AS [end_time], 
+    [lesson_msg].[full_lesson] AS [full_lesson]
+    FROM [dbo].[lesson_msg] AS [lesson_msg]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="teachers_hours" EntityType="Self.teachers_hours" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [teachers_hours].[teacherName] AS [teacherName], 
+    [teachers_hours].[teacher_departmentName] AS [teacher_departmentName], 
+    [teachers_hours].[teacher_positionName] AS [teacher_positionName], 
+    [teachers_hours].[teacher_rankName] AS [teacher_rankName], 
+    [teachers_hours].[teacher_workhours] AS [teacher_workhours], 
+    [teachers_hours].[teacherId] AS [teacherId]
+    FROM [dbo].[teachers_hours] AS [teachers_hours]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_disciplines_departments" Association="Self.FK_disciplines_departments">
+            <End Role="departments" EntitySet="departments" />
+            <End Role="disciplines" EntitySet="disciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groups_faculties" Association="Self.FK_groups_faculties">
+            <End Role="faculties" EntitySet="faculties" />
+            <End Role="groups" EntitySet="groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groups_specialties" Association="Self.FK_groups_specialties">
+            <End Role="specialties" EntitySet="specialties" />
+            <End Role="groups" EntitySet="groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groups_train_types" Association="Self.FK_groups_train_types">
+            <End Role="train_types" EntitySet="train_types" />
+            <End Role="groups" EntitySet="groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_specialties_faculties2" Association="Self.FK_specialties_faculties2">
+            <End Role="faculties" EntitySet="faculties" />
+            <End Role="specialties" EntitySet="specialties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teachers_departments" Association="Self.FK_teachers_departments">
+            <End Role="departments" EntitySet="departments" />
+            <End Role="teachers" EntitySet="teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teachers_positions" Association="Self.FK_teachers_positions">
+            <End Role="positions" EntitySet="positions" />
+            <End Role="teachers" EntitySet="teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teachers_ranks" Association="Self.FK_teachers_ranks">
+            <End Role="ranks" EntitySet="ranks" />
+            <End Role="teachers" EntitySet="teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_audiences" Association="Self.FK_timetable_audiences">
+            <End Role="audiences" EntitySet="audiences" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_audiences" Association="Self.FK_timetable_changes_audiences">
+            <End Role="audiences" EntitySet="audiences" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_changedescription" Association="Self.FK_timetable_changes_changedescription">
+            <End Role="changedescription" EntitySet="changedescription" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_dir_lessons" Association="Self.FK_timetable_changes_dir_lessons">
+            <End Role="dir_lessons" EntitySet="dir_lessons" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_disciplines" Association="Self.FK_timetable_changes_disciplines">
+            <End Role="disciplines" EntitySet="disciplines" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_teachers" Association="Self.FK_timetable_changes_teachers">
+            <End Role="teachers" EntitySet="teachers" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_timetable" Association="Self.FK_timetable_changes_timetable">
+            <End Role="timetable" EntitySet="timetable" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_dir_lessons" Association="Self.FK_timetable_dir_lessons">
+            <End Role="dir_lessons" EntitySet="dir_lessons" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_disciplines" Association="Self.FK_timetable_disciplines">
+            <End Role="disciplines" EntitySet="disciplines" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_groups" Association="Self.FK_timetable_groups">
+            <End Role="groups" EntitySet="groups" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_teachers" Association="Self.FK_timetable_teachers">
+            <End Role="teachers" EntitySet="teachers" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="timetable_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="audiences">
+          <Key>
+            <PropertyRef Name="room" />
+          </Key>
+          <Property Name="room" Type="Int32" Nullable="false" />
+          <Property Name="capacity" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="timetable" Relationship="Self.FK_timetable_audiences" FromRole="audiences" ToRole="timetable" />
+          <NavigationProperty Name="timetable_changes" Relationship="Self.FK_timetable_changes_audiences" FromRole="audiences" ToRole="timetable_changes" />
+        </EntityType>
+        <EntityType Name="changedescription">
+          <Key>
+            <PropertyRef Name="changedescription_id" />
+          </Key>
+          <Property Name="changedescription_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="timetable_changes" Relationship="Self.FK_timetable_changes_changedescription" FromRole="changedescription" ToRole="timetable_changes" />
+        </EntityType>
+        <EntityType Name="departments">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="disciplines" Relationship="Self.FK_disciplines_departments" FromRole="departments" ToRole="disciplines" />
+          <NavigationProperty Name="teachers" Relationship="Self.FK_teachers_departments" FromRole="departments" ToRole="teachers" />
+        </EntityType>
+        <EntityType Name="dir_lessons">
+          <Key>
+            <PropertyRef Name="lesson_number" />
+          </Key>
+          <Property Name="lesson_number" Type="Int32" Nullable="false" />
+          <Property Name="start_time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="end_time" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="timetable_changes" Relationship="Self.FK_timetable_changes_dir_lessons" FromRole="dir_lessons" ToRole="timetable_changes" />
+          <NavigationProperty Name="timetable" Relationship="Self.FK_timetable_dir_lessons" FromRole="dir_lessons" ToRole="timetable" />
+        </EntityType>
+        <EntityType Name="disciplines">
+          <Key>
+            <PropertyRef Name="discipline_id" />
+          </Key>
+          <Property Name="discipline_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="discipline_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="departments" Relationship="Self.FK_disciplines_departments" FromRole="disciplines" ToRole="departments" />
+          <NavigationProperty Name="timetable_changes" Relationship="Self.FK_timetable_changes_disciplines" FromRole="disciplines" ToRole="timetable_changes" />
+          <NavigationProperty Name="timetable" Relationship="Self.FK_timetable_disciplines" FromRole="disciplines" ToRole="timetable" />
+        </EntityType>
+        <EntityType Name="faculties">
+          <Key>
+            <PropertyRef Name="faculty_id" />
+          </Key>
+          <Property Name="faculty_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="faculty_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="groups" Relationship="Self.FK_groups_faculties" FromRole="faculties" ToRole="groups" />
+          <NavigationProperty Name="specialties" Relationship="Self.FK_specialties_faculties2" FromRole="faculties" ToRole="specialties" />
+        </EntityType>
+        <EntityType Name="groups">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="Int32" Nullable="false" />
+          <Property Name="count_people" Type="Int32" Nullable="false" />
+          <Property Name="id_specialty" Type="Int32" Nullable="false" />
+          <Property Name="id_trainform" Type="Int32" Nullable="false" />
+          <Property Name="id_faculty" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="faculties" Relationship="Self.FK_groups_faculties" FromRole="groups" ToRole="faculties" />
+          <NavigationProperty Name="specialties" Relationship="Self.FK_groups_specialties" FromRole="groups" ToRole="specialties" />
+          <NavigationProperty Name="train_types" Relationship="Self.FK_groups_train_types" FromRole="groups" ToRole="train_types" />
+          <NavigationProperty Name="timetable" Relationship="Self.FK_timetable_groups" FromRole="groups" ToRole="timetable" />
+        </EntityType>
+        <EntityType Name="positions">
+          <Key>
+            <PropertyRef Name="position_id" />
+          </Key>
+          <Property Name="position_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="position_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="teachers" Relationship="Self.FK_teachers_positions" FromRole="positions" ToRole="teachers" />
+        </EntityType>
+        <EntityType Name="ranks">
+          <Key>
+            <PropertyRef Name="rank_id" />
+          </Key>
+          <Property Name="rank_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rank_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="teachers" Relationship="Self.FK_teachers_ranks" FromRole="ranks" ToRole="teachers" />
+        </EntityType>
+        <EntityType Name="specialties">
+          <Key>
+            <PropertyRef Name="specialty_id" />
+          </Key>
+          <Property Name="specialty_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="specialty_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="faculty_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="faculties" Relationship="Self.FK_specialties_faculties2" FromRole="specialties" ToRole="faculties" />
+          <NavigationProperty Name="groups" Relationship="Self.FK_groups_specialties" FromRole="specialties" ToRole="groups" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="teachers">
+          <Key>
+            <PropertyRef Name="teacher_id" />
+          </Key>
+          <Property Name="teacher_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="position_id" Type="Int32" Nullable="false" />
+          <Property Name="rank_id" Type="Int32" Nullable="false" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="departments" Relationship="Self.FK_teachers_departments" FromRole="teachers" ToRole="departments" />
+          <NavigationProperty Name="positions" Relationship="Self.FK_teachers_positions" FromRole="teachers" ToRole="positions" />
+          <NavigationProperty Name="ranks" Relationship="Self.FK_teachers_ranks" FromRole="teachers" ToRole="ranks" />
+          <NavigationProperty Name="timetable_changes" Relationship="Self.FK_timetable_changes_teachers" FromRole="teachers" ToRole="timetable_changes" />
+          <NavigationProperty Name="timetable" Relationship="Self.FK_timetable_teachers" FromRole="teachers" ToRole="timetable" />
+        </EntityType>
+        <EntityType Name="timetable">
+          <Key>
+            <PropertyRef Name="timetable_id" />
+          </Key>
+          <Property Name="timetable_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
+          <Property Name="room" Type="Int32" Nullable="false" />
+          <Property Name="teacher_id" Type="Int32" Nullable="false" />
+          <Property Name="discipline_id" Type="Int32" Nullable="false" />
+          <Property Name="lesson_number" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="evenweek" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="audiences" Relationship="Self.FK_timetable_audiences" FromRole="timetable" ToRole="audiences" />
+          <NavigationProperty Name="dir_lessons" Relationship="Self.FK_timetable_dir_lessons" FromRole="timetable" ToRole="dir_lessons" />
+          <NavigationProperty Name="disciplines" Relationship="Self.FK_timetable_disciplines" FromRole="timetable" ToRole="disciplines" />
+          <NavigationProperty Name="groups" Relationship="Self.FK_timetable_groups" FromRole="timetable" ToRole="groups" />
+          <NavigationProperty Name="teachers" Relationship="Self.FK_timetable_teachers" FromRole="timetable" ToRole="teachers" />
+          <NavigationProperty Name="timetable_changes" Relationship="Self.FK_timetable_changes_timetable" FromRole="timetable" ToRole="timetable_changes" />
+        </EntityType>
+        <EntityType Name="timetable_changes">
+          <Key>
+            <PropertyRef Name="timetablechange_id" />
+          </Key>
+          <Property Name="timetablechange_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timetable_id" Type="Int32" Nullable="false" />
+          <Property Name="changedescription_id" Type="Int32" Nullable="false" />
+          <Property Name="room" Type="Int32" Nullable="false" />
+          <Property Name="teacher_id" Type="Int32" Nullable="false" />
+          <Property Name="discipline_id" Type="Int32" Nullable="false" />
+          <Property Name="lesson_number" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="evenweek" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="audiences" Relationship="Self.FK_timetable_changes_audiences" FromRole="timetable_changes" ToRole="audiences" />
+          <NavigationProperty Name="changedescription" Relationship="Self.FK_timetable_changes_changedescription" FromRole="timetable_changes" ToRole="changedescription" />
+          <NavigationProperty Name="dir_lessons" Relationship="Self.FK_timetable_changes_dir_lessons" FromRole="timetable_changes" ToRole="dir_lessons" />
+          <NavigationProperty Name="disciplines" Relationship="Self.FK_timetable_changes_disciplines" FromRole="timetable_changes" ToRole="disciplines" />
+          <NavigationProperty Name="teachers" Relationship="Self.FK_timetable_changes_teachers" FromRole="timetable_changes" ToRole="teachers" />
+          <NavigationProperty Name="timetable" Relationship="Self.FK_timetable_changes_timetable" FromRole="timetable_changes" ToRole="timetable" />
+        </EntityType>
+        <EntityType Name="train_types">
+          <Key>
+            <PropertyRef Name="traintype_id" />
+          </Key>
+          <Property Name="traintype_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="groups" Relationship="Self.FK_groups_train_types" FromRole="train_types" ToRole="groups" />
+        </EntityType>
+        <EntityType Name="audience_loading">
+          <Key>
+            <PropertyRef Name="timetableId" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="evenweek" />
+            <PropertyRef Name="teacher_name" />
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="timetableId" Type="Int32" Nullable="false" />
+          <Property Name="discipline_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="room" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="lesson_number" Type="String" MaxLength="83" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="evenweek" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="teacher_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="position_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="rank_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
+          <Property Name="group_count_people" Type="Int32" />
+          <Property Name="specialty_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="faculty_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="train_type_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="audience_msg">
+          <Key>
+            <PropertyRef Name="room" />
+            <PropertyRef Name="capacity" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="full_audience" />
+          </Key>
+          <Property Name="room" Type="Int32" Nullable="false" />
+          <Property Name="capacity" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="full_audience" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lesson_msg">
+          <Key>
+            <PropertyRef Name="lesson_number" />
+            <PropertyRef Name="start_time" />
+            <PropertyRef Name="end_time" />
+            <PropertyRef Name="full_lesson" />
+          </Key>
+          <Property Name="lesson_number" Type="Int32" Nullable="false" />
+          <Property Name="start_time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="end_time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="full_lesson" Type="String" MaxLength="83" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="teachers_hours">
+          <Key>
+            <PropertyRef Name="teacherName" />
+            <PropertyRef Name="teacherId" />
+          </Key>
+          <Property Name="teacherName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="teacher_departmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_positionName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_rankName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_workhours" Type="Decimal" Precision="13" Scale="1" />
+          <Property Name="teacherId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_timetable_audiences">
+          <End Role="audiences" Type="Self.audiences" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="audiences">
+              <PropertyRef Name="room" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="room" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_audiences">
+          <End Role="audiences" Type="Self.audiences" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="audiences">
+              <PropertyRef Name="room" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="room" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_changedescription">
+          <End Role="changedescription" Type="Self.changedescription" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="changedescription">
+              <PropertyRef Name="changedescription_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="changedescription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_disciplines_departments">
+          <End Role="departments" Type="Self.departments" Multiplicity="1" />
+          <End Role="disciplines" Type="Self.disciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departments">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="disciplines">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teachers_departments">
+          <End Role="departments" Type="Self.departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="teachers" Type="Self.teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departments">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="teachers">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_dir_lessons">
+          <End Role="dir_lessons" Type="Self.dir_lessons" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dir_lessons">
+              <PropertyRef Name="lesson_number" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="lesson_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_dir_lessons">
+          <End Role="dir_lessons" Type="Self.dir_lessons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dir_lessons">
+              <PropertyRef Name="lesson_number" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="lesson_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_disciplines">
+          <End Role="disciplines" Type="Self.disciplines" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="disciplines">
+              <PropertyRef Name="discipline_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="discipline_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_disciplines">
+          <End Role="disciplines" Type="Self.disciplines" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="disciplines">
+              <PropertyRef Name="discipline_id" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="discipline_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groups_faculties">
+          <End Role="faculties" Type="Self.faculties" Multiplicity="1" />
+          <End Role="groups" Type="Self.groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="faculties">
+              <PropertyRef Name="faculty_id" />
+            </Principal>
+            <Dependent Role="groups">
+              <PropertyRef Name="id_faculty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_specialties_faculties2">
+          <End Role="faculties" Type="Self.faculties" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="specialties" Type="Self.specialties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="faculties">
+              <PropertyRef Name="faculty_id" />
+            </Principal>
+            <Dependent Role="specialties">
+              <PropertyRef Name="faculty_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groups_specialties">
+          <End Role="specialties" Type="Self.specialties" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="groups" Type="Self.groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialties">
+              <PropertyRef Name="specialty_id" />
+            </Principal>
+            <Dependent Role="groups">
+              <PropertyRef Name="id_specialty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groups_train_types">
+          <End Role="train_types" Type="Self.train_types" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="groups" Type="Self.groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="train_types">
+              <PropertyRef Name="traintype_id" />
+            </Principal>
+            <Dependent Role="groups">
+              <PropertyRef Name="id_trainform" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_groups">
+          <End Role="groups" Type="Self.groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groups">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teachers_positions">
+          <End Role="positions" Type="Self.positions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="teachers" Type="Self.teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="positions">
+              <PropertyRef Name="position_id" />
+            </Principal>
+            <Dependent Role="teachers">
+              <PropertyRef Name="position_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teachers_ranks">
+          <End Role="ranks" Type="Self.ranks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="teachers" Type="Self.teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ranks">
+              <PropertyRef Name="rank_id" />
+            </Principal>
+            <Dependent Role="teachers">
+              <PropertyRef Name="rank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_teachers">
+          <End Role="teachers" Type="Self.teachers" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teachers">
+              <PropertyRef Name="teacher_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="teacher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_teachers">
+          <End Role="teachers" Type="Self.teachers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="timetable" Type="Self.timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teachers">
+              <PropertyRef Name="teacher_id" />
+            </Principal>
+            <Dependent Role="timetable">
+              <PropertyRef Name="teacher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_timetable_changes_timetable">
+          <End Role="timetable" Type="Self.timetable" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timetable">
+              <PropertyRef Name="timetable_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="timetable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="timetable_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="audiences" EntityType="Self.audiences" />
+          <EntitySet Name="changedescription" EntityType="Self.changedescription" />
+          <EntitySet Name="departments" EntityType="Self.departments" />
+          <EntitySet Name="dir_lessons" EntityType="Self.dir_lessons" />
+          <EntitySet Name="disciplines" EntityType="Self.disciplines" />
+          <EntitySet Name="faculties" EntityType="Self.faculties" />
+          <EntitySet Name="groups" EntityType="Self.groups" />
+          <EntitySet Name="positions" EntityType="Self.positions" />
+          <EntitySet Name="ranks" EntityType="Self.ranks" />
+          <EntitySet Name="specialties" EntityType="Self.specialties" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="teachers" EntityType="Self.teachers" />
+          <EntitySet Name="timetable" EntityType="Self.timetable" />
+          <EntitySet Name="timetable_changes" EntityType="Self.timetable_changes" />
+          <EntitySet Name="train_types" EntityType="Self.train_types" />
+          <EntitySet Name="audience_loading" EntityType="Self.audience_loading" />
+          <EntitySet Name="audience_msg" EntityType="Self.audience_msg" />
+          <EntitySet Name="lesson_msg" EntityType="Self.lesson_msg" />
+          <EntitySet Name="teachers_hours" EntityType="Self.teachers_hours" />
+          <AssociationSet Name="FK_timetable_audiences" Association="Self.FK_timetable_audiences">
+            <End Role="audiences" EntitySet="audiences" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_audiences" Association="Self.FK_timetable_changes_audiences">
+            <End Role="audiences" EntitySet="audiences" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_changedescription" Association="Self.FK_timetable_changes_changedescription">
+            <End Role="changedescription" EntitySet="changedescription" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_disciplines_departments" Association="Self.FK_disciplines_departments">
+            <End Role="departments" EntitySet="departments" />
+            <End Role="disciplines" EntitySet="disciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teachers_departments" Association="Self.FK_teachers_departments">
+            <End Role="departments" EntitySet="departments" />
+            <End Role="teachers" EntitySet="teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_dir_lessons" Association="Self.FK_timetable_changes_dir_lessons">
+            <End Role="dir_lessons" EntitySet="dir_lessons" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_dir_lessons" Association="Self.FK_timetable_dir_lessons">
+            <End Role="dir_lessons" EntitySet="dir_lessons" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_disciplines" Association="Self.FK_timetable_changes_disciplines">
+            <End Role="disciplines" EntitySet="disciplines" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_disciplines" Association="Self.FK_timetable_disciplines">
+            <End Role="disciplines" EntitySet="disciplines" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groups_faculties" Association="Self.FK_groups_faculties">
+            <End Role="faculties" EntitySet="faculties" />
+            <End Role="groups" EntitySet="groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_specialties_faculties2" Association="Self.FK_specialties_faculties2">
+            <End Role="faculties" EntitySet="faculties" />
+            <End Role="specialties" EntitySet="specialties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groups_specialties" Association="Self.FK_groups_specialties">
+            <End Role="specialties" EntitySet="specialties" />
+            <End Role="groups" EntitySet="groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groups_train_types" Association="Self.FK_groups_train_types">
+            <End Role="train_types" EntitySet="train_types" />
+            <End Role="groups" EntitySet="groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_groups" Association="Self.FK_timetable_groups">
+            <End Role="groups" EntitySet="groups" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teachers_positions" Association="Self.FK_teachers_positions">
+            <End Role="positions" EntitySet="positions" />
+            <End Role="teachers" EntitySet="teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teachers_ranks" Association="Self.FK_teachers_ranks">
+            <End Role="ranks" EntitySet="ranks" />
+            <End Role="teachers" EntitySet="teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_teachers" Association="Self.FK_timetable_changes_teachers">
+            <End Role="teachers" EntitySet="teachers" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_teachers" Association="Self.FK_timetable_teachers">
+            <End Role="teachers" EntitySet="teachers" />
+            <End Role="timetable" EntitySet="timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_timetable" Association="Self.FK_timetable_changes_timetable">
+            <End Role="timetable" EntitySet="timetable" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="timetable_dbModelStoreContainer" CdmEntityContainer="timetable_dbEntities">
+          <EntitySetMapping Name="audiences">
+            <EntityTypeMapping TypeName="timetable_dbModel.audiences">
+              <MappingFragment StoreEntitySet="audiences">
+                <ScalarProperty Name="room" ColumnName="room" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="changedescription">
+            <EntityTypeMapping TypeName="timetable_dbModel.changedescription">
+              <MappingFragment StoreEntitySet="changedescription">
+                <ScalarProperty Name="changedescription_id" ColumnName="changedescription_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="timetable_dbModel.departments">
+              <MappingFragment StoreEntitySet="departments">
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dir_lessons">
+            <EntityTypeMapping TypeName="timetable_dbModel.dir_lessons">
+              <MappingFragment StoreEntitySet="dir_lessons">
+                <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="disciplines">
+            <EntityTypeMapping TypeName="timetable_dbModel.disciplines">
+              <MappingFragment StoreEntitySet="disciplines">
+                <ScalarProperty Name="discipline_id" ColumnName="discipline_id" />
+                <ScalarProperty Name="discipline_name" ColumnName="discipline_name" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="faculties">
+            <EntityTypeMapping TypeName="timetable_dbModel.faculties">
+              <MappingFragment StoreEntitySet="faculties">
+                <ScalarProperty Name="faculty_id" ColumnName="faculty_id" />
+                <ScalarProperty Name="faculty_name" ColumnName="faculty_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="groups">
+            <EntityTypeMapping TypeName="timetable_dbModel.groups">
+              <MappingFragment StoreEntitySet="groups">
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="count_people" ColumnName="count_people" />
+                <ScalarProperty Name="id_specialty" ColumnName="id_specialty" />
+                <ScalarProperty Name="id_trainform" ColumnName="id_trainform" />
+                <ScalarProperty Name="id_faculty" ColumnName="id_faculty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="positions">
+            <EntityTypeMapping TypeName="timetable_dbModel.positions">
+              <MappingFragment StoreEntitySet="positions">
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+                <ScalarProperty Name="position_name" ColumnName="position_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ranks">
+            <EntityTypeMapping TypeName="timetable_dbModel.ranks">
+              <MappingFragment StoreEntitySet="ranks">
+                <ScalarProperty Name="rank_id" ColumnName="rank_id" />
+                <ScalarProperty Name="rank_name" ColumnName="rank_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="specialties">
+            <EntityTypeMapping TypeName="timetable_dbModel.specialties">
+              <MappingFragment StoreEntitySet="specialties">
+                <ScalarProperty Name="specialty_id" ColumnName="specialty_id" />
+                <ScalarProperty Name="specialty_name" ColumnName="specialty_name" />
+                <ScalarProperty Name="faculty_id" ColumnName="faculty_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="timetable_dbModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teachers">
+            <EntityTypeMapping TypeName="timetable_dbModel.teachers">
+              <MappingFragment StoreEntitySet="teachers">
+                <ScalarProperty Name="teacher_id" ColumnName="teacher_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+                <ScalarProperty Name="rank_id" ColumnName="rank_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="timetable">
+            <EntityTypeMapping TypeName="timetable_dbModel.timetable">
+              <MappingFragment StoreEntitySet="timetable">
+                <ScalarProperty Name="timetable_id" ColumnName="timetable_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="room" ColumnName="room" />
+                <ScalarProperty Name="teacher_id" ColumnName="teacher_id" />
+                <ScalarProperty Name="discipline_id" ColumnName="discipline_id" />
+                <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="evenweek" ColumnName="evenweek" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="timetable_changes">
+            <EntityTypeMapping TypeName="timetable_dbModel.timetable_changes">
+              <MappingFragment StoreEntitySet="timetable_changes">
+                <ScalarProperty Name="timetablechange_id" ColumnName="timetablechange_id" />
+                <ScalarProperty Name="timetable_id" ColumnName="timetable_id" />
+                <ScalarProperty Name="changedescription_id" ColumnName="changedescription_id" />
+                <ScalarProperty Name="room" ColumnName="room" />
+                <ScalarProperty Name="teacher_id" ColumnName="teacher_id" />
+                <ScalarProperty Name="discipline_id" ColumnName="discipline_id" />
+                <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="evenweek" ColumnName="evenweek" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="train_types">
+            <EntityTypeMapping TypeName="timetable_dbModel.train_types">
+              <MappingFragment StoreEntitySet="train_types">
+                <ScalarProperty Name="traintype_id" ColumnName="traintype_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="audience_loading">
+            <EntityTypeMapping TypeName="timetable_dbModel.audience_loading">
+              <MappingFragment StoreEntitySet="audience_loading">
+                <ScalarProperty Name="timetableId" ColumnName="timetableId" />
+                <ScalarProperty Name="discipline_name" ColumnName="discipline_name" />
+                <ScalarProperty Name="room" ColumnName="room" />
+                <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="evenweek" ColumnName="evenweek" />
+                <ScalarProperty Name="teacher_name" ColumnName="teacher_name" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+                <ScalarProperty Name="position_name" ColumnName="position_name" />
+                <ScalarProperty Name="rank_name" ColumnName="rank_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="group_count_people" ColumnName="group_count_people" />
+                <ScalarProperty Name="specialty_name" ColumnName="specialty_name" />
+                <ScalarProperty Name="faculty_name" ColumnName="faculty_name" />
+                <ScalarProperty Name="train_type_name" ColumnName="train_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="audience_msg">
+            <EntityTypeMapping TypeName="timetable_dbModel.audience_msg">
+              <MappingFragment StoreEntitySet="audience_msg">
+                <ScalarProperty Name="room" ColumnName="room" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="full_audience" ColumnName="full_audience" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lesson_msg">
+            <EntityTypeMapping TypeName="timetable_dbModel.lesson_msg">
+              <MappingFragment StoreEntitySet="lesson_msg">
+                <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="full_lesson" ColumnName="full_lesson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teachers_hours">
+            <EntityTypeMapping TypeName="timetable_dbModel.teachers_hours">
+              <MappingFragment StoreEntitySet="teachers_hours">
+                <ScalarProperty Name="teacherName" ColumnName="teacherName" />
+                <ScalarProperty Name="teacher_departmentName" ColumnName="teacher_departmentName" />
+                <ScalarProperty Name="teacher_positionName" ColumnName="teacher_positionName" />
+                <ScalarProperty Name="teacher_rankName" ColumnName="teacher_rankName" />
+                <ScalarProperty Name="teacher_workhours" ColumnName="teacher_workhours" />
+                <ScalarProperty Name="teacherId" ColumnName="teacherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

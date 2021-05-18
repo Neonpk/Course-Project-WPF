@@ -34,9 +34,15 @@ namespace CourseProjectWPF.Pages
         public List<audiences> Audiences { get; set; }
         public List<teachers> Teachers { get; set; }
         public List<dir_lessons> Dir_Lessons { get; set; }
-        public List<days_week> Days_Weeks { get; set; }
 
         public List<disciplines> Disciplines { get; set; }
+
+        public Dictionary<string, bool> Evenweeks { get; set; } = new Dictionary<string, bool>
+        {
+            { "Четная", true },
+            { "Нечетная", false }
+        };
+
 
         private int errorFieldCounter = 0;
 
@@ -49,7 +55,7 @@ namespace CourseProjectWPF.Pages
             Teachers = Connection.Database.teachers.ToList();
             Disciplines = Connection.Database.disciplines.ToList();
             Dir_Lessons = Connection.Database.dir_lessons.ToList();
-            Days_Weeks = Connection.Database.days_week.ToList();
+
 
             CurrentRow = new timetable();
 
@@ -71,7 +77,6 @@ namespace CourseProjectWPF.Pages
             Teachers = Connection.Database.teachers.ToList();
             Disciplines = Connection.Database.disciplines.ToList();
             Dir_Lessons = Connection.Database.dir_lessons.ToList();
-            Days_Weeks = Connection.Database.days_week.ToList();
 
             this.dispatcherWindow = dispatcherWindow;
 
@@ -131,10 +136,8 @@ namespace CourseProjectWPF.Pages
                     EditReferenceRow.lesson_number = CurrentRow.lesson_number;
                     EditReferenceRow.dir_lessons = CurrentRow.dir_lessons;
 
-                    EditReferenceRow.weekday_id = CurrentRow.weekday_id;
-                    EditReferenceRow.days_week = CurrentRow.days_week;
-
-                    EditReferenceRow.week_account = CurrentRow.week_account;
+                    EditReferenceRow.evenweek = CurrentRow.evenweek;
+                    EditReferenceRow.date = CurrentRow.date;
 
                 }
                 else

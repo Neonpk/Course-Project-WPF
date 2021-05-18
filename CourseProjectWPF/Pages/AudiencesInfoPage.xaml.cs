@@ -24,6 +24,27 @@ namespace CourseProjectWPF.Pages
     /// </summary>
     public partial class AudiencesInfoPage : Page
     {
+
+        private Dictionary<string, string> _weeks = new Dictionary<string, string>
+        {
+            { "monday", "Понедельник" },
+            { "tuesday", "Вторник" },
+            { "wednesday", "Среда" },
+            { "thursday", "Четверг" },
+            { "friday", "Пятница" },
+            { "saturday", "Суббота" },
+            { "sunday", "Воскресенье" }
+        };
+
+        private string GetStringFromDate(DateTime date)
+        {
+            var week = "";
+
+            bool condition = _weeks.TryGetValue(date.DayOfWeek.ToString().ToLower(), out week);
+
+            return condition ? String.Format("{0} ({1})", date.ToString("dd.MM.yy"), week) : date.ToString("dd.MM.yy");
+        }
+
         public AudiencesInfoPage(Window owner)
         {
 
@@ -76,10 +97,11 @@ namespace CourseProjectWPF.Pages
                     return ((item as audience_loading).lesson_number.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
                 case 3:
-                    return ((item as audience_loading).week_name.IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    return GetStringFromDate((item as audience_loading).date).IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0;
 
                 case 4:
-                    return ((item as audience_loading).week_account.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    return System.Text.RegularExpressions.Regex.IsMatch(textBoxFilter.Text.ToLower(),
+                        String.Format("^{0}$", (item as audience_loading).evenweek.ToLower()));
 
                 case 5:
                     return ((item as audience_loading).teacher_name.IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);

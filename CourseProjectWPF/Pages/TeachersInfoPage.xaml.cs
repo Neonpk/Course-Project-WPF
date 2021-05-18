@@ -73,9 +73,6 @@ namespace CourseProjectWPF.Pages
                 case 4:
                     return ((item as teachers_hours).teacher_workhours.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-                case 5:
-                    return ((item as teachers_hours).teacher_workyears.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-
                 default:
                     return true;
             }

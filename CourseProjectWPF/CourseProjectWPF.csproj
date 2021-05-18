@@ -67,72 +67,83 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\DateConverter.cs" />
+    <Compile Include="Converters\EvenweekConverter.cs" />
     <Compile Include="Converters\LabelGroupConverter.cs" />
     <Compile Include="Converters\LabelRoomConverter.cs" />
     <Compile Include="Converters\LogoConverter.cs" />
     <Compile Include="Converters\VisibilityConnectionState.cs" />
     <Compile Include="Model\audiences.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\audience_loading.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\days_week.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+    <Compile Include="Model\audience_msg.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\changedescription.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Database.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Database.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Database.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\departments.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\dir_lessons.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\disciplines.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\faculties.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\groups.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\lesson_msg.cs">
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\positions.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ranks.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\specialties.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\sysdiagrams.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\teachers.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\teachers_hours.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\timetable.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\TimetableDBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TimetableDBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TimetableDBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TimetableDBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TimetableDBModel.edmx</DependentUpon>
+    <Compile Include="Model\timetable_changes.cs">
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\train_types.cs">
-      <DependentUpon>TimetableDBModel.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AudiencesInfoPage.xaml.cs">
       <DependentUpon>AudiencesInfoPage.xaml</DependentUpon>
@@ -313,12 +324,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\TimetableDBModel.edmx">
+    <EntityDeploy Include="Model\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TimetableDBModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\TimetableDBModel.edmx.diagram">
-      <DependentUpon>TimetableDBModel.edmx</DependentUpon>
+    <None Include="Model\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -329,7 +340,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
@@ -342,15 +355,20 @@
     <Resource Include="Images\calendar.png" />
     <Resource Include="icon.ico" />
     <Resource Include="Images\qr-code.png" />
-    <Content Include="Model\TimetableDBModel.Context.tt">
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TimetableDBModel.edmx</DependentUpon>
-      <LastGenOutput>TimetableDBModel.Context.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\TimetableDBModel.tt">
+    <Content Include="Model\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TimetableDBModel.edmx</DependentUpon>
-      <LastGenOutput>TimetableDBModel.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

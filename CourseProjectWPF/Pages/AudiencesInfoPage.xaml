@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourseProjectWPF.Pages"
+      xmlns:converter="clr-namespace:CourseProjectWPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AudiencesInfoPage">
@@ -45,6 +46,8 @@
             </Setter>
         </Style>
 
+        <converter:DateConverter x:Key="dateConverter"/>
+
     </Page.Resources>
     
     <DockPanel>
@@ -64,8 +67,8 @@
                 <ComboBoxItem>По дисциплине</ComboBoxItem>
                 <ComboBoxItem>По аудитории</ComboBoxItem>
                 <ComboBoxItem>По номеру пары</ComboBoxItem>
-                <ComboBoxItem>По дню недели</ComboBoxItem>
-                <ComboBoxItem>По неделе по счету</ComboBoxItem>
+                <ComboBoxItem>По дате</ComboBoxItem>
+                <ComboBoxItem>По чётности недели</ComboBoxItem>
                 <ComboBoxItem>По имени преподователя</ComboBoxItem>
                 <ComboBoxItem>По кафедре</ComboBoxItem>
                 <ComboBoxItem>По должности преподавателя</ComboBoxItem>
@@ -95,8 +98,8 @@
                 <DataGridTextColumn Header="Дисциплина" Binding="{Binding discipline_name}" />
                 <DataGridTextColumn Header="Аудитория" Binding="{Binding room}" />
                 <DataGridTextColumn Header="Пара по счету" Binding="{Binding lesson_number}" />
-                <DataGridTextColumn Header="День недели" Binding="{Binding week_name}" />
-                <DataGridTextColumn Header="Неделя по счету" Binding="{Binding week_account}" />
+                <DataGridTextColumn Header="Чётность недели" Binding="{Binding evenweek}" />
+                <DataGridTextColumn Header="Дата" Binding="{Binding date, Converter={StaticResource dateConverter}}" />
                 <DataGridTextColumn Header="Преподаватель" Binding="{Binding teacher_name}" />
                 <DataGridTextColumn Header="Кафедра" Binding="{Binding department_name}" />
                 <DataGridTextColumn Header="Должность" Binding="{Binding position_name}" />

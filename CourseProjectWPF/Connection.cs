@@ -10,6 +10,6 @@ namespace CourseProjectWPF
 
     public static class Connection
     {
-        public static timetable_dbEntities2 Database { get; set; }
+        public static timetable_dbEntities Database { get; set; }
     }
 }

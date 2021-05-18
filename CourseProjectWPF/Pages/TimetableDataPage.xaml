@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourseProjectWPF.Pages"
+      xmlns:converters="clr-namespace:CourseProjectWPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TimetableDataPage">
@@ -46,6 +47,10 @@
             </Setter>
         </Style>
 
+        <converters:EvenweekConverter x:Key="evenweekConverter"/>
+        <converters:DateConverter x:Key="dateConverter"/>
+
+
     </Page.Resources>
 
 
@@ -69,8 +74,8 @@
                 <ComboBoxItem>По имени преподавателя</ComboBoxItem>
                 <ComboBoxItem>По названию дисциплины</ComboBoxItem>
                 <ComboBoxItem>По номеру пары</ComboBoxItem>
-                <ComboBoxItem>По дню недели</ComboBoxItem>
-                <ComboBoxItem>По неделе по счету</ComboBoxItem>
+                <ComboBoxItem>По дате</ComboBoxItem>
+                <ComboBoxItem>По чётности недели</ComboBoxItem>
             </ComboBox>
 
             <TextBox 
@@ -90,8 +95,9 @@
             <DataGrid.Columns>
                 
                 <DataGridTextColumn Header="Номер группы" Binding="{Binding group_id}" />
-                <DataGridTextColumn Header="День недели" Binding="{Binding days_week.week_name}" />
-                <DataGridTextColumn Header="Неделя по счету" Binding="{Binding week_account}" />
+
+                <DataGridTextColumn Header="Чётность недели" Binding="{Binding evenweek, Converter={StaticResource evenweekConverter}}" />
+                <DataGridTextColumn Header="Дата" Binding="{Binding date, Converter={StaticResource dateConverter}}" />
 
                 <DataGridTemplateColumn Header="Номер аудитории">
                     <DataGridTemplateColumn.CellTemplate>

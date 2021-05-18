@@ -180,39 +180,14 @@
 
         <Label Content="День недели" FontSize="20"/>
 
-        <ComboBox ItemsSource="{Binding Days_Weeks}"
-                  Validation.Error="textBoxWeek_account_Error"
-                  >
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding week_name}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
+        <DatePicker SelectedDate="{Binding CurrentRow.date}" Text="Выберите дату" />
 
-            <ComboBox.SelectedItem>
-                <Binding Path="CurrentRow.days_week"
-                         UpdateSourceTrigger="PropertyChanged"
-                         NotifyOnValidationError="True">
-                    <Binding.ValidationRules>
-                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </ComboBox.SelectedItem>
-            
-        </ComboBox>
+        <Label Content="Четность недели" FontSize="20"/>
 
-        <Label Content="Неделя по счету" FontSize="20"/>
+        <ComboBox ItemsSource="{Binding Evenweeks}" SelectedValue="{Binding CurrentRow.evenweek}"
+                  DisplayMemberPath="Key" SelectedValuePath="Value"/>
 
-        <TextBox FontSize="25" 
-                 x:Name="textBoxWeek_account" Validation.Error="textBoxWeek_account_Error">
-            <TextBox.Text>
-                <Binding Path="CurrentRow.week_account" NotifyOnValidationError="True">
-                    <Binding.ValidationRules>
-                        <rules:OnlyDigitsRule ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
+
 
         <Button Click="CancelEdit_ButtonClick" Content="Отмена" Margin="10"/>
         <Button Click="SaveIntoDatabase_ButtonClick" x:Name="buttonSaveIntoDB" Content="Сохранить" Margin="10 0 10 10"/>

@@ -56,7 +56,7 @@ namespace CourseProjectWPF
         {
             InitializeComponent();
 
-            Connection.Database = new Model.timetable_dbEntities2();
+            Connection.Database = new Model.timetable_dbEntities();
             IsConnected = Connection.Database.Database.Exists();
 
             IsAboutShowing = false;

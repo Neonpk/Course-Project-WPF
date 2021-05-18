@@ -12,13 +12,11 @@ namespace CourseProjectWPF.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class teachers_hours
+    public partial class audience_msg
     {
-        public string teacherName { get; set; }
-        public string teacher_departmentName { get; set; }
-        public string teacher_positionName { get; set; }
-        public string teacher_rankName { get; set; }
-        public Nullable<decimal> teacher_workhours { get; set; }
-        public int teacherId { get; set; }
+        public int room { get; set; }
+        public int capacity { get; set; }
+        public string type { get; set; }
+        public string full_audience { get; set; }
     }
 }

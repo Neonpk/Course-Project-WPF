@@ -24,10 +24,32 @@ namespace CourseProjectWPF.Pages
     /// </summary>
     public partial class TimetableDataPage : Page
     {
+
         public ObservableCollection<timetable> Timetable { get; set; }
         public timetable CurrentRow { get; set; }
 
         private DispatcherWindow dispatcherWindow = null;
+
+
+        private Dictionary<string, string> _weeks = new Dictionary<string, string>
+        {
+            { "monday", "Понедельник" },
+            { "tuesday", "Вторник" },
+            { "wednesday", "Среда" },
+            { "thursday", "Четверг" },
+            { "friday", "Пятница" },
+            { "saturday", "Суббота" },
+            { "sunday", "Воскресенье" }
+        };
+
+        private string GetStringFromDate(DateTime date)
+        {
+            var week = "";
+
+            bool condition = _weeks.TryGetValue(date.DayOfWeek.ToString().ToLower(), out week);
+
+            return condition ? String.Format("{0} ({1})", date.ToString("dd.MM.yy"), week) : date.ToString("dd.MM.yy");
+        }
 
         public TimetableDataPage(DispatcherWindow dispatcherWindow)
         {
@@ -140,11 +162,11 @@ namespace CourseProjectWPF.Pages
                     return ((item as timetable).lesson_number.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
                 case 5:
-                    return ((item as timetable).days_week.week_name.IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    return GetStringFromDate( (item as timetable).date ).IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0;
 
                 case 6:
-                    return ((item as timetable).week_account.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-
+                    return System.Text.RegularExpressions.Regex.IsMatch(textBoxFilter.Text.ToLower(), 
+                        ((item as timetable).evenweek ? "^Четная$" : "^Нечетная$").ToLower() );
 
                 default:
                     return true;

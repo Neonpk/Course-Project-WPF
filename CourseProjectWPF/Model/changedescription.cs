@@ -12,18 +12,18 @@ namespace CourseProjectWPF.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ranks
+    public partial class changedescription
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ranks()
+        public changedescription()
         {
-            this.teachers = new HashSet<teachers>();
+            this.timetable_changes = new HashSet<timetable_changes>();
         }
     
-        public int rank_id { get; set; }
-        public string rank_name { get; set; }
+        public int changedescription_id { get; set; }
+        public string description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<teachers> teachers { get; set; }
+        public virtual ICollection<timetable_changes> timetable_changes { get; set; }
     }
 }
