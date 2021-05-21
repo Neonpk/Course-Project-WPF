@@ -49,7 +49,9 @@
 
         <converters:EvenweekConverter x:Key="evenweekConverter"/>
         <converters:DateConverter x:Key="dateConverter"/>
-
+        <converters:StatusLessonImageConverter x:Key="statusLessonImageConverter"/>
+        <converters:StatusLessonConverter x:Key="statusLessonConverter"/>
+        <converters:VisibilityConnectionState x:Key="visibilityConverter"/>
 
     </Page.Resources>
 
@@ -93,19 +95,19 @@
                   Loaded="dataGridTimetable_Loaded">
 
             <DataGrid.Columns>
-                
-                <DataGridTextColumn Header="Номер группы" Binding="{Binding group_id}" />
 
-                <DataGridTextColumn Header="Чётность недели" Binding="{Binding evenweek, Converter={StaticResource evenweekConverter}}" />
-                <DataGridTextColumn Header="Дата" Binding="{Binding date, Converter={StaticResource dateConverter}}" />
+                <DataGridTextColumn Header="Номер группы" Binding="{Binding Timetable.group_id}" />
+
+                <DataGridTextColumn Header="Чётность недели" Binding="{Binding Timetable.evenweek, Converter={StaticResource evenweekConverter}}" />
+                <DataGridTextColumn Header="Дата" Binding="{Binding Timetable.date, Converter={StaticResource dateConverter}}" />
 
                 <DataGridTemplateColumn Header="Номер аудитории">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
-                                <Run Text="{Binding room}" />
+                                <Run Text="{Binding Timetable.room}" />
                                 <Run Text="("/>
-                                <Run Text="{Binding audiences.type}"/>
+                                <Run Text="{Binding Timetable.audiences.type}"/>
                                 <Run Text=")"/>
                             </TextBlock>
                         </DataTemplate>
@@ -116,9 +118,9 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
-                                <Run Text="{Binding teachers.name}"/>
+                                <Run Text="{Binding Timetable.teachers.name}"/>
                                 <Run Text="("/>
-                                <Run Text="{Binding teachers.departments.department_name}"/>
+                                <Run Text="{Binding Timetable.teachers.departments.department_name}"/>
                                 <Run Text=")"/>
                             </TextBlock>
                         </DataTemplate>
@@ -126,19 +128,39 @@
                 </DataGridTemplateColumn>
 
 
-                <DataGridTextColumn Header="Дисциплина" Binding="{Binding disciplines.discipline_name}" MinWidth="450"/>
+                <DataGridTextColumn Header="Дисциплина" Binding="{Binding Timetable.disciplines.discipline_name}" MinWidth="355"/>
                 
                 <DataGridTemplateColumn Header="Номер пары" MinWidth="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
-                                <Run Text="{Binding lesson_number}" />
+                                <Run Text="{Binding Timetable.lesson_number}" />
                                 <Run Text="("/>
-                                <Run Text="{Binding dir_lessons.start_time}"/>
+                                <Run Text="{Binding Timetable.dir_lessons.start_time}"/>
                                 <Run Text="-"/>
-                                <Run Text="{Binding dir_lessons.end_time}"/>
+                                <Run Text="{Binding Timetable.dir_lessons.end_time}"/>
                                 <Run Text=")"/>
                             </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Состояние пары">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                                
+                                <Image Source="{Binding Timetable.completed, Converter={StaticResource statusLessonImageConverter}}" Height="32" Width="32" />
+                                
+                                <TextBlock Text="{Binding Timetable.completed, Converter={StaticResource statusLessonConverter}}" HorizontalAlignment="Center"/>
+                                
+                                <TextBlock Visibility="{Binding IsChanged, Converter={StaticResource visibilityConverter}}">
+                                           <Hyperlink Command="{Binding DataContext.NavigateToChangesCommand, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}">
+                                               <TextBlock Text="есть изменения" Foreground="Red" TextDecorations="Underline" />
+                                           </Hyperlink>
+                                </TextBlock>
+                                
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -147,7 +169,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DockPanel VerticalAlignment="Center">
-                                <Button Click="ChangeData_ButtonClick" FontSize="16" Content="Изменить" DockPanel.Dock="Top" Margin="0 2"/>
+                                <Button Click="MakeChanges_ButtonClick" FontSize="16" Content="Внести изменения" DockPanel.Dock="Top" Margin="0 2"/>
+                                <Button Click="ChangeData_ButtonClick" FontSize="16" Content="Корректировать" DockPanel.Dock="Top" Margin="0 2"/>
                                 <Button Click="RemoveRow_ButtonClick" FontSize="16" Content="Удалить" DockPanel.Dock="Top" Margin="0 2"/>
                             </DockPanel>
                         </DataTemplate>

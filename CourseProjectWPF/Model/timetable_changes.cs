@@ -14,7 +14,6 @@ namespace CourseProjectWPF.Model
     
     public partial class timetable_changes
     {
-        public int timetablechange_id { get; set; }
         public int timetable_id { get; set; }
         public int changedescription_id { get; set; }
         public int room { get; set; }
@@ -23,11 +22,13 @@ namespace CourseProjectWPF.Model
         public int lesson_number { get; set; }
         public System.DateTime date { get; set; }
         public bool evenweek { get; set; }
+        public int group_id { get; set; }
     
         public virtual audiences audiences { get; set; }
         public virtual changedescription changedescription { get; set; }
         public virtual dir_lessons dir_lessons { get; set; }
         public virtual disciplines disciplines { get; set; }
+        public virtual groups groups { get; set; }
         public virtual teachers teachers { get; set; }
         public virtual timetable timetable { get; set; }
     }

@@ -1,0 +1,230 @@
+﻿<Page x:Class="CourseProjectWPF.Pages.MakeChangesTimetableDataPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProjectWPF.Pages"
+      xmlns:rules="clr-namespace:CourseProjectWPF.ValidationRules"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" Height="650"
+      Title="MakeChangesTimetableDataPage">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+
+            <Setter Property="Background" Value="#50C878"/>
+            <Setter Property="FontSize" Value="23"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#50C878" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#49ba6e" />
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+    </Page.Resources>
+
+    <StackPanel Margin="10">
+
+        <Label FontSize="30">
+            <TextBlock>
+                <Run Text="Внести изменения в расписании для записи №"/>
+                <Run Text="{Binding CurrentRow.timetable_id}" />
+            </TextBlock>
+        </Label>
+
+        <Label Content="Номер группы" FontSize="20"/>
+
+
+        <ComboBox ItemsSource="{Binding Groups}" 
+                  Validation.Error="textBoxWeek_account_Error"
+                  >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding group_id}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentRow.groups"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+
+        </ComboBox>
+        
+        <Label Content="Номер аудитории" FontSize="20"/>
+
+        <ComboBox ItemsSource="{Binding Audiences}"
+                  Validation.Error="textBoxWeek_account_Error">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="15">
+                        <Run Text="{Binding room}" />
+                        <Run Text="("/>
+                            <Run Text="{Binding type}"/>
+                        <Run Text=")"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentRow.audiences"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+
+                </Binding>
+            </ComboBox.SelectedItem>
+
+        </ComboBox>
+
+        <Label Content="Преподаватель" FontSize="20"/>
+
+        <ComboBox 
+                  x:Name="comboboxTeacher"
+                  ItemsSource="{Binding Teachers}"             
+                  Validation.Error="textBoxWeek_account_Error">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="15">
+                        <Run Text="{Binding name}" />
+                        <Run Text="("/>
+                            <Run Text="{Binding departments.department_name}"/>
+                        <Run Text=")"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentRow.teachers"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+
+        </ComboBox>
+
+
+        <Label Content="Дисциплина" FontSize="20"/>
+
+        <ComboBox 
+                  x:Name="comboBoxDiscipline"
+                  ItemsSource="{Binding ElementName=comboboxTeacher, Path=SelectedItem.departments.disciplines}"
+                  Validation.Error="textBoxWeek_account_Error"
+                  >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="15" Text="{Binding discipline_name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentRow.disciplines" 
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+
+        </ComboBox>
+
+        <Label Content="Номер пары" FontSize="20"/>
+
+        <ComboBox 
+                  ItemsSource="{Binding Dir_Lessons}"
+                  Validation.Error="textBoxWeek_account_Error"
+                  >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="15">
+                        <Run Text="{Binding lesson_number}" />
+                        <Run Text="("/>
+                            <Run Text="{Binding start_time}"/>
+                            <Run Text="-"/>
+                            <Run Text="{Binding end_time}"/>
+                        <Run Text=")"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentRow.dir_lessons"
+                         UpdateSourceTrigger="PropertyChanged"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+
+        </ComboBox>
+
+
+        <Label Content="День недели" FontSize="20"/>
+
+        <DatePicker SelectedDate="{Binding CurrentRow.date}" Text="Выберите дату" />
+
+        <Label Content="Четность недели" FontSize="20"/>
+
+        <ComboBox ItemsSource="{Binding Evenweeks}" SelectedValue="{Binding CurrentRow.evenweek}"
+                  DisplayMemberPath="Key" SelectedValuePath="Value"/>
+
+        <Label Content="Причина замены" FontSize="20" />
+
+        <ComboBox ItemsSource="{Binding Changedescriptions}"
+                  Validation.Error="textBoxWeek_account_Error">
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="15">
+                        <Run Text="{Binding description}" />
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.SelectedItem>
+                <Binding Path="CurrentRow.changedescription"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+
+                    <Binding.ValidationRules>
+                        <rules:ComboboxSelectedItemRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+
+                </Binding>
+            </ComboBox.SelectedItem>
+
+        </ComboBox>
+        
+
+
+        <Button Click="CancelEdit_ButtonClick" Content="Отмена" Margin="10"/>
+        <Button Click="SaveIntoDatabase_ButtonClick" x:Name="buttonSaveIntoDB" Content="Внести изменения" Margin="10 0 10 10"/>
+
+    </StackPanel>
+    
+</Page>

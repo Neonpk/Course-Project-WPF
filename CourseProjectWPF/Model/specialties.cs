@@ -12,7 +12,7 @@ namespace CourseProjectWPF.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class specialties
+    public partial class specialties : ICloneable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public specialties()
@@ -39,6 +39,7 @@ namespace CourseProjectWPF.Model
                 groups = this.groups
             };
         }
+
 
     }
 }

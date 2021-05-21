@@ -72,6 +72,8 @@
     <Compile Include="Converters\LabelGroupConverter.cs" />
     <Compile Include="Converters\LabelRoomConverter.cs" />
     <Compile Include="Converters\LogoConverter.cs" />
+    <Compile Include="Converters\StatusLessonConverter.cs" />
+    <Compile Include="Converters\StatusLessonImageConverter.cs" />
     <Compile Include="Converters\VisibilityConnectionState.cs" />
     <Compile Include="Model\audiences.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -142,6 +144,9 @@
     <Compile Include="Model\timetable_changes.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\timetable_changesview.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\train_types.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -190,6 +195,9 @@
     <Compile Include="Pages\GroupsDataPage.xaml.cs">
       <DependentUpon>GroupsDataPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MakeChangesTimetableDataPage.xaml.cs">
+      <DependentUpon>MakeChangesTimetableDataPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\RoomsDataPage.xaml.cs">
       <DependentUpon>RoomsDataPage.xaml</DependentUpon>
     </Compile>
@@ -202,6 +210,9 @@
     <Compile Include="Pages\TeachersInfoPage.xaml.cs">
       <DependentUpon>TeachersInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TimetableChangesDataPage.xaml.cs">
+      <DependentUpon>TimetableChangesDataPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TimetableDataPage.xaml.cs">
       <DependentUpon>TimetableDataPage.xaml</DependentUpon>
     </Compile>
@@ -209,6 +220,7 @@
     <Compile Include="ValidationRules\DescriptionRule.cs" />
     <Compile Include="ValidationRules\NamePersonRule.cs" />
     <Compile Include="ValidationRules\OnlyDigitsRule.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="Windows\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -291,6 +303,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\MakeChangesTimetableDataPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\RoomsDataPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -304,6 +320,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TeachersInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TimetableChangesDataPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -354,9 +374,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
@@ -374,6 +392,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\completed.png" />
+    <Resource Include="Images\waiting.png" />
     <Content Include="Model\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>

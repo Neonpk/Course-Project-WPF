@@ -12,11 +12,12 @@ namespace CourseProjectWPF.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class groups
+    public partial class groups : ICloneable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public groups()
         {
+            this.timetable_changes = new HashSet<timetable_changes>();
             this.timetable = new HashSet<timetable>();
         }
     
@@ -29,6 +30,8 @@ namespace CourseProjectWPF.Model
         public virtual faculties faculties { get; set; }
         public virtual specialties specialties { get; set; }
         public virtual train_types train_types { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<timetable_changes> timetable_changes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<timetable> timetable { get; set; }
 

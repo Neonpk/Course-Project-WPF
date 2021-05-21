@@ -114,12 +114,12 @@
           <Property Name="lesson_number" Type="int" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
           <Property Name="evenweek" Type="bit" Nullable="false" />
+          <Property Name="completed" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="timetable_changes">
           <Key>
-            <PropertyRef Name="timetablechange_id" />
+            <PropertyRef Name="timetable_id" />
           </Key>
-          <Property Name="timetablechange_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="timetable_id" Type="int" Nullable="false" />
           <Property Name="changedescription_id" Type="int" Nullable="false" />
           <Property Name="room" Type="int" Nullable="false" />
@@ -128,6 +128,7 @@
           <Property Name="lesson_number" Type="int" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
           <Property Name="evenweek" Type="bit" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="train_types">
           <Key>
@@ -151,7 +152,7 @@ warning 6002: The table/view 'timetable_db.dbo.audience_loading' does not have a
           <Property Name="room" Type="nvarchar" MaxLength="40" />
           <Property Name="lesson_number" Type="varchar" MaxLength="83" />
           <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="evenweek" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="evenweek" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="teacher_name" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="department_name" Type="nvarchar" MaxLength="50" />
           <Property Name="position_name" Type="nvarchar" MaxLength="25" />
@@ -203,6 +204,27 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           <Property Name="teacher_rankName" Type="nvarchar" MaxLength="75" />
           <Property Name="teacher_workhours" Type="numeric" Precision="13" Scale="1" />
           <Property Name="teacherId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="timetable_changesview">
+          <Key>
+            <PropertyRef Name="timetable_id" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="evenweek" />
+            <PropertyRef Name="group_id" />
+            <PropertyRef Name="completed" />
+          </Key>
+          <Property Name="timetable_id" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" />
+          <Property Name="room" Type="nvarchar" MaxLength="40" />
+          <Property Name="teacher_name" Type="nvarchar" MaxLength="75" />
+          <Property Name="discipline_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="lesson_number" Type="varchar" MaxLength="83" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="evenweek" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="completed" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_disciplines_departments">
           <End Role="departments" Type="Self.departments" Multiplicity="1" />
@@ -374,6 +396,18 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_timetable_changes_groups">
+          <End Role="groups" Type="Self.groups" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groups">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_timetable_changes_teachers">
           <End Role="teachers" Type="Self.teachers" Multiplicity="1" />
           <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
@@ -388,7 +422,7 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
         </Association>
         <Association Name="FK_timetable_changes_timetable">
           <End Role="timetable" Type="Self.timetable" Multiplicity="1" />
-          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="timetable">
               <PropertyRef Name="timetable_id" />
@@ -515,6 +549,20 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
     [teachers_hours].[teacherId] AS [teacherId]
     FROM [dbo].[teachers_hours] AS [teachers_hours]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="timetable_changesview" EntityType="Self.timetable_changesview" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [timetable_changesview].[timetable_id] AS [timetable_id], 
+    [timetable_changesview].[description] AS [description], 
+    [timetable_changesview].[room] AS [room], 
+    [timetable_changesview].[teacher_name] AS [teacher_name], 
+    [timetable_changesview].[discipline_name] AS [discipline_name], 
+    [timetable_changesview].[lesson_number] AS [lesson_number], 
+    [timetable_changesview].[date] AS [date], 
+    [timetable_changesview].[evenweek] AS [evenweek], 
+    [timetable_changesview].[group_id] AS [group_id], 
+    [timetable_changesview].[completed] AS [completed]
+    FROM [dbo].[timetable_changesview] AS [timetable_changesview]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_disciplines_departments" Association="Self.FK_disciplines_departments">
             <End Role="departments" EntitySet="departments" />
             <End Role="disciplines" EntitySet="disciplines" />
@@ -565,6 +613,10 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           </AssociationSet>
           <AssociationSet Name="FK_timetable_changes_disciplines" Association="Self.FK_timetable_changes_disciplines">
             <End Role="disciplines" EntitySet="disciplines" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_groups" Association="Self.FK_timetable_changes_groups">
+            <End Role="groups" EntitySet="groups" />
             <End Role="timetable_changes" EntitySet="timetable_changes" />
           </AssociationSet>
           <AssociationSet Name="FK_timetable_changes_teachers" Association="Self.FK_timetable_changes_teachers">
@@ -666,6 +718,7 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           <NavigationProperty Name="faculties" Relationship="Self.FK_groups_faculties" FromRole="groups" ToRole="faculties" />
           <NavigationProperty Name="specialties" Relationship="Self.FK_groups_specialties" FromRole="groups" ToRole="specialties" />
           <NavigationProperty Name="train_types" Relationship="Self.FK_groups_train_types" FromRole="groups" ToRole="train_types" />
+          <NavigationProperty Name="timetable_changes" Relationship="Self.FK_timetable_changes_groups" FromRole="groups" ToRole="timetable_changes" />
           <NavigationProperty Name="timetable" Relationship="Self.FK_timetable_groups" FromRole="groups" ToRole="timetable" />
         </EntityType>
         <EntityType Name="positions">
@@ -731,6 +784,7 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           <Property Name="lesson_number" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="evenweek" Type="Boolean" Nullable="false" />
+          <Property Name="completed" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="audiences" Relationship="Self.FK_timetable_audiences" FromRole="timetable" ToRole="audiences" />
           <NavigationProperty Name="dir_lessons" Relationship="Self.FK_timetable_dir_lessons" FromRole="timetable" ToRole="dir_lessons" />
           <NavigationProperty Name="disciplines" Relationship="Self.FK_timetable_disciplines" FromRole="timetable" ToRole="disciplines" />
@@ -740,9 +794,8 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
         </EntityType>
         <EntityType Name="timetable_changes">
           <Key>
-            <PropertyRef Name="timetablechange_id" />
+            <PropertyRef Name="timetable_id" />
           </Key>
-          <Property Name="timetablechange_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="timetable_id" Type="Int32" Nullable="false" />
           <Property Name="changedescription_id" Type="Int32" Nullable="false" />
           <Property Name="room" Type="Int32" Nullable="false" />
@@ -751,10 +804,12 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           <Property Name="lesson_number" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="evenweek" Type="Boolean" Nullable="false" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="audiences" Relationship="Self.FK_timetable_changes_audiences" FromRole="timetable_changes" ToRole="audiences" />
           <NavigationProperty Name="changedescription" Relationship="Self.FK_timetable_changes_changedescription" FromRole="timetable_changes" ToRole="changedescription" />
           <NavigationProperty Name="dir_lessons" Relationship="Self.FK_timetable_changes_dir_lessons" FromRole="timetable_changes" ToRole="dir_lessons" />
           <NavigationProperty Name="disciplines" Relationship="Self.FK_timetable_changes_disciplines" FromRole="timetable_changes" ToRole="disciplines" />
+          <NavigationProperty Name="groups" Relationship="Self.FK_timetable_changes_groups" FromRole="timetable_changes" ToRole="groups" />
           <NavigationProperty Name="teachers" Relationship="Self.FK_timetable_changes_teachers" FromRole="timetable_changes" ToRole="teachers" />
           <NavigationProperty Name="timetable" Relationship="Self.FK_timetable_changes_timetable" FromRole="timetable_changes" ToRole="timetable" />
         </EntityType>
@@ -779,7 +834,7 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           <Property Name="room" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="lesson_number" Type="String" MaxLength="83" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="evenweek" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="evenweek" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="teacher_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="position_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
@@ -825,6 +880,25 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           <Property Name="teacher_rankName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
           <Property Name="teacher_workhours" Type="Decimal" Precision="13" Scale="1" />
           <Property Name="teacherId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="timetable_changesview">
+          <Key>
+            <PropertyRef Name="timetable_id" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="evenweek" />
+            <PropertyRef Name="group_id" />
+            <PropertyRef Name="completed" />
+          </Key>
+          <Property Name="timetable_id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="room" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="discipline_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lesson_number" Type="String" MaxLength="83" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="evenweek" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
+          <Property Name="completed" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_timetable_audiences">
           <End Role="audiences" Type="Self.audiences" Multiplicity="1">
@@ -996,6 +1070,18 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_timetable_changes_groups">
+          <End Role="groups" Type="Self.groups" Multiplicity="1" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groups">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="timetable_changes">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_timetable_groups">
           <End Role="groups" Type="Self.groups" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1066,7 +1152,7 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
         </Association>
         <Association Name="FK_timetable_changes_timetable">
           <End Role="timetable" Type="Self.timetable" Multiplicity="1" />
-          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="*" />
+          <End Role="timetable_changes" Type="Self.timetable_changes" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="timetable">
               <PropertyRef Name="timetable_id" />
@@ -1096,6 +1182,7 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           <EntitySet Name="audience_msg" EntityType="Self.audience_msg" />
           <EntitySet Name="lesson_msg" EntityType="Self.lesson_msg" />
           <EntitySet Name="teachers_hours" EntityType="Self.teachers_hours" />
+          <EntitySet Name="timetable_changesview" EntityType="Self.timetable_changesview" />
           <AssociationSet Name="FK_timetable_audiences" Association="Self.FK_timetable_audiences">
             <End Role="audiences" EntitySet="audiences" />
             <End Role="timetable" EntitySet="timetable" />
@@ -1147,6 +1234,10 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
           <AssociationSet Name="FK_groups_train_types" Association="Self.FK_groups_train_types">
             <End Role="train_types" EntitySet="train_types" />
             <End Role="groups" EntitySet="groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_timetable_changes_groups" Association="Self.FK_timetable_changes_groups">
+            <End Role="groups" EntitySet="groups" />
+            <End Role="timetable_changes" EntitySet="timetable_changes" />
           </AssociationSet>
           <AssociationSet Name="FK_timetable_groups" Association="Self.FK_timetable_groups">
             <End Role="groups" EntitySet="groups" />
@@ -1299,13 +1390,13 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
                 <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="evenweek" ColumnName="evenweek" />
+                <ScalarProperty Name="completed" ColumnName="completed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="timetable_changes">
             <EntityTypeMapping TypeName="timetable_dbModel.timetable_changes">
               <MappingFragment StoreEntitySet="timetable_changes">
-                <ScalarProperty Name="timetablechange_id" ColumnName="timetablechange_id" />
                 <ScalarProperty Name="timetable_id" ColumnName="timetable_id" />
                 <ScalarProperty Name="changedescription_id" ColumnName="changedescription_id" />
                 <ScalarProperty Name="room" ColumnName="room" />
@@ -1314,6 +1405,7 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
                 <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="evenweek" ColumnName="evenweek" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1375,6 +1467,22 @@ warning 6002: The table/view 'timetable_db.dbo.teachers_hours' does not have a p
                 <ScalarProperty Name="teacher_rankName" ColumnName="teacher_rankName" />
                 <ScalarProperty Name="teacher_workhours" ColumnName="teacher_workhours" />
                 <ScalarProperty Name="teacherId" ColumnName="teacherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="timetable_changesview">
+            <EntityTypeMapping TypeName="timetable_dbModel.timetable_changesview">
+              <MappingFragment StoreEntitySet="timetable_changesview">
+                <ScalarProperty Name="timetable_id" ColumnName="timetable_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="room" ColumnName="room" />
+                <ScalarProperty Name="teacher_name" ColumnName="teacher_name" />
+                <ScalarProperty Name="discipline_name" ColumnName="discipline_name" />
+                <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="evenweek" ColumnName="evenweek" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="completed" ColumnName="completed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

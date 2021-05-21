@@ -44,5 +44,6 @@ namespace CourseProjectWPF.Model
         public virtual DbSet<audience_msg> audience_msg { get; set; }
         public virtual DbSet<lesson_msg> lesson_msg { get; set; }
         public virtual DbSet<teachers_hours> teachers_hours { get; set; }
+        public virtual DbSet<timetable_changesview> timetable_changesview { get; set; }
     }
 }

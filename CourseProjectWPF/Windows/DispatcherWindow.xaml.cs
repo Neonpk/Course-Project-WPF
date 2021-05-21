@@ -41,6 +41,13 @@ namespace CourseProjectWPF.Windows
 
             switch( (sender as Button).Name )
             {
+
+                case "buttonTimeTableChangesInfo":
+
+                    page = new TimetableChangesDataPage(this);
+
+                    break;
+
                 case "buttonTeachersInfo":
 
                     page = new TeachersInfoPage(this);

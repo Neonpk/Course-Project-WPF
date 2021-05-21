@@ -1,4 +1,5 @@
 ﻿using CourseProjectWPF.Model;
+using CourseProjectWPF.ViewModel;
 using CourseProjectWPF.Windows;
 using System;
 using System.Collections.Generic;
@@ -19,16 +20,38 @@ using System.Windows.Shapes;
 
 namespace CourseProjectWPF.Pages
 {
+
+    public class TimetableModel
+    {
+        public timetable Timetable { get; set; }
+        public bool IsChanged { get; set; }
+    }
+
     /// <summary>
     /// Логика взаимодействия для TimetableDataPage.xaml
     /// </summary>
+    /// 
     public partial class TimetableDataPage : Page
     {
 
-        public ObservableCollection<timetable> Timetable { get; set; }
-        public timetable CurrentRow { get; set; }
+        public ObservableCollection<TimetableModel> Timetable { get; set; }
+        public TimetableModel CurrentRow { get; set; }
 
-        private DispatcherWindow dispatcherWindow = null;
+        private DispatcherWindow _dispatcherWindow = null;
+
+        private ICommand _navigateToChangesCommand;
+        public ICommand NavigateToChangesCommand
+        {
+            get
+            {
+                return _navigateToChangesCommand ??
+                  (_navigateToChangesCommand = new RelayCommand(obj =>
+                  {
+                      _dispatcherWindow.mainFrame.Navigate(new TimetableChangesDataPage(this._dispatcherWindow, CurrentRow.Timetable.timetable_id));
+
+                  }, x => true));
+            }
+        }
 
 
         private Dictionary<string, string> _weeks = new Dictionary<string, string>
@@ -59,9 +82,21 @@ namespace CourseProjectWPF.Pages
 
                 InitializeComponent();
 
-                this.Timetable = new ObservableCollection<timetable>(Connection.Database.timetable.ToList());
+                //this.Timetable = new ObservableCollection<TimetableModel>(Connection.Database.timetable.ToList());
 
-                this.dispatcherWindow = dispatcherWindow;
+                //GetTimeTable
+
+                var timetable_changes = Connection.Database.timetable_changes.Select(x => x.timetable_id);
+
+                this.Timetable = new ObservableCollection<TimetableModel>(Connection.Database.timetable.Select(item => new TimetableModel
+                {
+                    Timetable = item,
+                    IsChanged = timetable_changes.Contains(item.timetable_id)
+                }));
+
+                // 
+
+                this._dispatcherWindow = dispatcherWindow;
 
                 DataContext = this;
 
@@ -86,13 +121,13 @@ namespace CourseProjectWPF.Pages
 
         private void AddNewRow_ButtonClick(object sender, RoutedEventArgs e)
         {
-            this.dispatcherWindow.mainFrame.Navigate(new EditTimetableDataPage(this.dispatcherWindow));
+            this._dispatcherWindow.mainFrame.Navigate(new EditTimetableDataPage(this._dispatcherWindow));
         }
 
         private void RemoveRow_ButtonClick(object sender, RoutedEventArgs e)
         {
             try
-            {
+             {
 
                 if (CurrentRow != null)
                 {
@@ -103,8 +138,8 @@ namespace CourseProjectWPF.Pages
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
 
-                        Connection.Database.timetable.Remove(CurrentRow);
-                        Timetable.Remove(CurrentRow);
+                        Connection.Database.timetable.Remove(CurrentRow.Timetable);
+                        Timetable.Remove(this.Timetable.FirstOrDefault(x=>x.Timetable.timetable_id == CurrentRow.Timetable.timetable_id));
 
                         Connection.Database.SaveChanges();
 
@@ -125,7 +160,7 @@ namespace CourseProjectWPF.Pages
 
         private void ChangeData_ButtonClick(object sender, RoutedEventArgs e)
         {
-            dispatcherWindow.mainFrame.Navigate(new EditTimetableDataPage(this.dispatcherWindow, CurrentRow));
+            _dispatcherWindow.mainFrame.Navigate(new EditTimetableDataPage(this._dispatcherWindow, CurrentRow.Timetable));
         }
 
         private void textBoxFilter_TextChanged(object sender, TextChangedEventArgs e)
@@ -171,6 +206,11 @@ namespace CourseProjectWPF.Pages
                 default:
                     return true;
             }
+        }
+
+        private void MakeChanges_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            _dispatcherWindow.mainFrame.Navigate(new MakeChangesTimetableDataPage(this._dispatcherWindow, CurrentRow.Timetable));
         }
     }
 }

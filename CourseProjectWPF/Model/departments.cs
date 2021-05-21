@@ -12,7 +12,7 @@ namespace CourseProjectWPF.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class departments
+    public partial class departments : ICloneable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public departments()
@@ -39,6 +39,7 @@ namespace CourseProjectWPF.Model
                 teachers = this.teachers
             };
         }
+
 
     }
 }

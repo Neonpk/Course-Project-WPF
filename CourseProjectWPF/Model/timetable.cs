@@ -12,14 +12,8 @@ namespace CourseProjectWPF.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class timetable
+    public partial class timetable : ICloneable
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public timetable()
-        {
-            this.timetable_changes = new HashSet<timetable_changes>();
-        }
-    
         public int timetable_id { get; set; }
         public int group_id { get; set; }
         public int room { get; set; }
@@ -28,14 +22,14 @@ namespace CourseProjectWPF.Model
         public int lesson_number { get; set; }
         public System.DateTime date { get; set; }
         public bool evenweek { get; set; }
+        public bool completed { get; set; }
     
         public virtual audiences audiences { get; set; }
         public virtual dir_lessons dir_lessons { get; set; }
         public virtual disciplines disciplines { get; set; }
         public virtual groups groups { get; set; }
         public virtual teachers teachers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<timetable_changes> timetable_changes { get; set; }
+        public virtual timetable_changes timetable_changes { get; set; }
 
         public object Clone()
         {
