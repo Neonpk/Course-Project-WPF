@@ -18,6 +18,7 @@ namespace CourseProjectWPF.Model
         public string description { get; set; }
         public string room { get; set; }
         public string teacher_name { get; set; }
+        public int teacher_id { get; set; }
         public string discipline_name { get; set; }
         public string lesson_number { get; set; }
         public System.DateTime date { get; set; }

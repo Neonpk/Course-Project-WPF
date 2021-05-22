@@ -26,6 +26,8 @@ namespace CourseProjectWPF.Model
         public int position_id { get; set; }
         public int rank_id { get; set; }
         public int department_id { get; set; }
+        public string login { get; set; }
+        public string passwd { get; set; }
     
         public virtual departments departments { get; set; }
         public virtual positions positions { get; set; }

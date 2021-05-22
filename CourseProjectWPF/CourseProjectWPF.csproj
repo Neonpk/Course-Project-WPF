@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\AuthConverter.cs" />
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\EvenweekConverter.cs" />
     <Compile Include="Converters\LabelGroupConverter.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Converters\StatusLessonConverter.cs" />
     <Compile Include="Converters\StatusLessonImageConverter.cs" />
     <Compile Include="Converters\VisibilityConnectionState.cs" />
+    <Compile Include="Converters\VisibilityReverseBooleanConverter.cs" />
     <Compile Include="Model\audiences.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -210,6 +212,12 @@
     <Compile Include="Pages\TeachersInfoPage.xaml.cs">
       <DependentUpon>TeachersInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TeacherTimetableChangesDataPage.xaml.cs">
+      <DependentUpon>TeacherTimetableChangesDataPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TeacherTimetableDataPage.xaml.cs">
+      <DependentUpon>TeacherTimetableDataPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TimetableChangesDataPage.xaml.cs">
       <DependentUpon>TimetableChangesDataPage.xaml</DependentUpon>
     </Compile>
@@ -220,12 +228,22 @@
     <Compile Include="ValidationRules\DescriptionRule.cs" />
     <Compile Include="ValidationRules\NamePersonRule.cs" />
     <Compile Include="ValidationRules\OnlyDigitsRule.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\TeacherAuthViewModel.cs" />
+    <Compile Include="ViewModel\TeacherTimetableChangesViewModel.cs" />
+    <Compile Include="ViewModel\TeacherTimetableViewModel.cs" />
+    <Compile Include="ViewModel\TeacherWindowViewModel.cs" />
     <Compile Include="Windows\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\DispatcherWindow.xaml.cs">
       <DependentUpon>DispatcherWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TeacherWindow.xaml.cs">
+      <DependentUpon>TeacherWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -323,6 +341,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\TeacherTimetableChangesDataPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TeacherTimetableDataPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\TimetableChangesDataPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -336,6 +362,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\DispatcherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TeacherWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -374,7 +404,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
@@ -394,6 +423,8 @@
   <ItemGroup>
     <Resource Include="Images\completed.png" />
     <Resource Include="Images\waiting.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>

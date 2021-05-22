@@ -101,6 +101,8 @@
           <Property Name="position_id" Type="int" Nullable="false" />
           <Property Name="rank_id" Type="int" Nullable="false" />
           <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="passwd" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="timetable">
           <Key>
@@ -210,6 +212,7 @@ warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not h
         <EntityType Name="timetable_changesview">
           <Key>
             <PropertyRef Name="timetable_id" />
+            <PropertyRef Name="teacher_id" />
             <PropertyRef Name="date" />
             <PropertyRef Name="evenweek" />
             <PropertyRef Name="group_id" />
@@ -219,6 +222,7 @@ warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not h
           <Property Name="description" Type="nvarchar" MaxLength="50" />
           <Property Name="room" Type="nvarchar" MaxLength="40" />
           <Property Name="teacher_name" Type="nvarchar" MaxLength="75" />
+          <Property Name="teacher_id" Type="int" Nullable="false" />
           <Property Name="discipline_name" Type="nvarchar" MaxLength="50" />
           <Property Name="lesson_number" Type="varchar" MaxLength="83" />
           <Property Name="date" Type="date" Nullable="false" />
@@ -555,6 +559,7 @@ warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not h
     [timetable_changesview].[description] AS [description], 
     [timetable_changesview].[room] AS [room], 
     [timetable_changesview].[teacher_name] AS [teacher_name], 
+    [timetable_changesview].[teacher_id] AS [teacher_id], 
     [timetable_changesview].[discipline_name] AS [discipline_name], 
     [timetable_changesview].[lesson_number] AS [lesson_number], 
     [timetable_changesview].[date] AS [date], 
@@ -766,6 +771,8 @@ warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not h
           <Property Name="position_id" Type="Int32" Nullable="false" />
           <Property Name="rank_id" Type="Int32" Nullable="false" />
           <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="departments" Relationship="Self.FK_teachers_departments" FromRole="teachers" ToRole="departments" />
           <NavigationProperty Name="positions" Relationship="Self.FK_teachers_positions" FromRole="teachers" ToRole="positions" />
           <NavigationProperty Name="ranks" Relationship="Self.FK_teachers_ranks" FromRole="teachers" ToRole="ranks" />
@@ -884,6 +891,7 @@ warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not h
         <EntityType Name="timetable_changesview">
           <Key>
             <PropertyRef Name="timetable_id" />
+            <PropertyRef Name="teacher_id" />
             <PropertyRef Name="date" />
             <PropertyRef Name="evenweek" />
             <PropertyRef Name="group_id" />
@@ -893,6 +901,7 @@ warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not h
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="room" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="teacher_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_id" Type="Int32" Nullable="false" />
           <Property Name="discipline_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="lesson_number" Type="String" MaxLength="83" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
@@ -1376,6 +1385,8 @@ warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not h
                 <ScalarProperty Name="position_id" ColumnName="position_id" />
                 <ScalarProperty Name="rank_id" ColumnName="rank_id" />
                 <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="passwd" ColumnName="passwd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1477,6 +1488,7 @@ warning 6002: The table/view 'timetable_db.dbo.timetable_changesview' does not h
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="room" ColumnName="room" />
                 <ScalarProperty Name="teacher_name" ColumnName="teacher_name" />
+                <ScalarProperty Name="teacher_id" ColumnName="teacher_id" />
                 <ScalarProperty Name="discipline_name" ColumnName="discipline_name" />
                 <ScalarProperty Name="lesson_number" ColumnName="lesson_number" />
                 <ScalarProperty Name="date" ColumnName="date" />

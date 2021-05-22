@@ -1,0 +1,114 @@
+﻿<Page x:Class="CourseProjectWPF.Pages.TeacherTimetableChangesDataPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProjectWPF.Pages"
+      xmlns:converters="clr-namespace:CourseProjectWPF.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TeacherTimetableChangesDataPage">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+
+            <Setter Property="Background" Value="#50C878"/>
+            <Setter Property="FontSize" Value="25"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#50C878" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#49ba6e" />
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <Style x:Key="Body_Content_DataGrid_Centering" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{x:Static SystemColors.HighlightBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <converters:EvenweekConverter x:Key="evenweekConverter"/>
+        <converters:DateConverter x:Key="dateConverter"/>
+        <converters:StatusLessonImageConverter x:Key="statusLessonImageConverter"/>
+
+
+
+    </Page.Resources>
+
+    <DockPanel>
+
+
+        <DockPanel Margin="10" DockPanel.Dock="Top">
+            <Label Content="Изменения в расписании" FontSize="30" />
+
+            <Button Content="Обновить"
+                    HorizontalAlignment="Right" Width="200" DockPanel.Dock="Right"
+                    Command="{Binding ReloadDataCommand}" />
+        </DockPanel>
+
+        <DataGrid DockPanel.Dock="Top" AutoGenerateColumns="False"
+                  ItemsSource="{Binding TimetableChangesView, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                  IsReadOnly="True" Margin="10"
+                  CellStyle="{StaticResource Body_Content_DataGrid_Centering}"
+                  x:Name="dataGridTimetable" SelectionMode="Single"
+                  SelectedValuePath="timetable_id" SelectedValue="{Binding TimetableId}"
+                  >
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Номер группы" Binding="{Binding group_id}" />
+
+                <DataGridTextColumn Header="Чётность недели" Binding="{Binding evenweek}" />
+                <DataGridTextColumn Header="Дата" Binding="{Binding date, Converter={StaticResource dateConverter}}" />
+                <DataGridTextColumn Header="Номер аудитории" Binding="{Binding room}" />
+                <DataGridTextColumn Header="Преподаватель" Binding="{Binding teacher_name}" />
+                <DataGridTextColumn Header="Дисциплина" Binding="{Binding discipline_name}" MinWidth="355"/>
+                <DataGridTextColumn Header="Номер пары" Binding="{Binding lesson_number}" MinWidth="355"/>
+
+                <DataGridTextColumn Header="Причина замены" Binding="{Binding description}"/>
+
+                <DataGridTemplateColumn Header="Состояние пары">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DockPanel VerticalAlignment="Center">
+                                <Image Source="{Binding completed, Converter={StaticResource statusLessonImageConverter}}" Height="32" Width="32" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </DockPanel>
+
+
+</Page>

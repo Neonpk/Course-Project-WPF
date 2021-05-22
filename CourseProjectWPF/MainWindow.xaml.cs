@@ -1,4 +1,5 @@
 ﻿using CourseProjectWPF.Model;
+using CourseProjectWPF.ViewModel;
 using CourseProjectWPF.Windows;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,9 @@ namespace CourseProjectWPF
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+
+        public MainViewModel ViewModel { get; set; }
+
         private bool _isaboutshowing = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -52,6 +56,47 @@ namespace CourseProjectWPF
             }
         }
 
+        private ICommand _radioButtonSelectCommand;
+        public ICommand RadioButtonSelectCommand
+        {
+            get
+            {
+                return _radioButtonSelectCommand ??
+                  (_radioButtonSelectCommand = new RelayCommand(obj =>
+                  {
+                      //if (Watermark == null) return;
+
+                      switch (obj)
+                      {
+                          case "radioButtonDispatcher":
+
+                              //Watermark.Text = "Ввод пароля диспетчера.";
+
+                              ViewModel.SelectedViewModel = new EmployeeViewModel(IsConnected, "dispatcher", this);
+
+                              break;
+
+                          case "radioButtonAdmin":
+
+                              //Watermark.Text = "Ввод пароля администратора";
+
+                              ViewModel.SelectedViewModel = new EmployeeViewModel(IsConnected, "admin", this);
+
+                              break;
+
+                          case "radioButtonTeacher":
+
+                              ViewModel.SelectedViewModel = new TeacherAuthViewModel(IsConnected, this);
+
+                              break;
+                      }
+
+                  }, x => true));
+            }
+        }
+
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -61,70 +106,16 @@ namespace CourseProjectWPF
 
             IsAboutShowing = false;
 
+            ViewModel = new MainViewModel();
+
             DataContext = this;
 
-        }
-
-        private void Button_Auth(object sender, RoutedEventArgs e)
-        {
-
-            Window window = null;
-
-            if(radioButtonDispatcher.IsChecked.Value && passwordBox.Password == "dispatcher")
-            {
-                window = new DispatcherWindow();
-                window.Show();
-
-            }
-            else if(radioButtonAdmin.IsChecked.Value && passwordBox.Password == "admin")
-            {
-
-                window = new AdminWindow();
-                window.Show();
-            }
-            else
-            {
-
-
-                Watermark.Text = passwordBox.Password.Length > 0 
-                    ? "Неверный пароль." : "Пароль не был введен.";
-
-                passwordBox.Password = String.Empty;
-                return;
-            }
-
-            this.Close();
 
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             IsAboutShowing = !IsAboutShowing;
-        }
-
-        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            Watermark.Visibility = passwordBox.Password.Length > 0 ? Visibility.Collapsed : Visibility.Visible;
-        }
-
-        private void radioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            if (Watermark == null) return;
-
-            switch( (sender as RadioButton).Name )
-            {
-                case "radioButtonDispatcher":
-
-                    Watermark.Text = "Ввод пароля диспетчера.";
-
-                    break;
-
-                case "radioButtonAdmin":
-
-                    Watermark.Text = "Ввод пароля администратора";
-
-                    break;
-            }
         }
 
     }

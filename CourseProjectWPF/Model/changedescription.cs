@@ -13,7 +13,7 @@ namespace CourseProjectWPF.Model
     using System.Collections.Generic;
     
     public partial class changedescription : ICloneable
-    { 
+    {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public changedescription()
         {
