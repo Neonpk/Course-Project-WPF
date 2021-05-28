@@ -1,0 +1,117 @@
+﻿<Page x:Class="CourseProjectWPF.Pages.UnoccupiedRoomsInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProjectWPF.Pages"
+      xmlns:converter="clr-namespace:CourseProjectWPF.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UnoccupiedRoomsInfoPage">
+
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+
+            <Setter Property="Background" Value="#50C878"/>
+            <Setter Property="FontSize" Value="23"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#50C878" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#49ba6e" />
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <Style x:Key="Body_Content_DataGrid_Centering" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" Height="30"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <converter:DateConverter x:Key="dateConverter"/>
+
+    </Page.Resources>
+
+    <DockPanel>
+        <DockPanel Margin="10" DockPanel.Dock="Top">
+
+            <Label FontSize="30" Content="Поиск свободных аудиторий"/>
+
+            <Button Content="Обновить"
+                    HorizontalAlignment="Right" Width="200" DockPanel.Dock="Right" 
+                    Command="{Binding ButtonRefreshDataCommand}"/>
+
+        </DockPanel>
+
+        <DockPanel Margin="10" DockPanel.Dock="Top">
+            
+            <Label FontSize="18" Content="Применить фильтр" DockPanel.Dock="Top"/>
+
+            <StackPanel Orientation="Horizontal">
+
+                <ComboBox x:Name="comboboxRoom" ItemsSource="{Binding Audiences}"
+                          SelectedValuePath="room" SelectedItem="{Binding SelectedRoom}" SelectedIndex="0">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding room}"/>
+                                <Run Text="("/>
+                                <Run Text="{Binding type}"/>
+                                <Run Text=")"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    
+                </ComboBox>
+
+                <DatePicker SelectedDate="{Binding SelectedDate}" Margin="10 0 0 0"/>
+
+                <Button Margin="10 0 0 0" Content="Найти..." FontSize="15" Command="{Binding ButtonRoomSearchCommand}"/>
+                <Button Margin="10 0 0 0" Content="Сбросить фильтры" FontSize="15" Command="{Binding ButtonResetFiltersCommand}"/>
+
+            </StackPanel>
+
+        </DockPanel>
+
+        <DataGrid DockPanel.Dock="Top" AutoGenerateColumns="False"
+                  ItemsSource="{Binding UnoccupiedRoomsSource}"
+                  IsReadOnly="True" Margin="10"
+                  CellStyle="{StaticResource Body_Content_DataGrid_Centering}"
+                  x:Name="dataGridTimetable" 
+                  >
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Аудитория" Binding="{Binding Room}" />
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date, Converter={StaticResource dateConverter}}"/>
+                <DataGridTextColumn Header="Номер пары" Binding="{Binding LessonNumber}"/>
+                <DataGridTextColumn Header="Начало пары" Binding="{Binding StartTime}"/>
+                <DataGridTextColumn Header="Конец пары" Binding="{Binding EndTime}"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </DockPanel>
+
+</Page>

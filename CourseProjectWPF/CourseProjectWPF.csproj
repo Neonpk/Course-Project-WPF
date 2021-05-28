@@ -224,6 +224,9 @@
     <Compile Include="Pages\TimetableDataPage.xaml.cs">
       <DependentUpon>TimetableDataPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UnoccupiedRoomsInfoPage.xaml.cs">
+      <DependentUpon>UnoccupiedRoomsInfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValidationRules\ComboboxSelectedItemRule.cs" />
     <Compile Include="ValidationRules\DescriptionRule.cs" />
     <Compile Include="ValidationRules\NamePersonRule.cs" />
@@ -236,6 +239,7 @@
     <Compile Include="ViewModel\TeacherTimetableChangesViewModel.cs" />
     <Compile Include="ViewModel\TeacherTimetableViewModel.cs" />
     <Compile Include="ViewModel\TeacherWindowViewModel.cs" />
+    <Compile Include="ViewModel\UnoccupiedRoomsViewModel.cs" />
     <Compile Include="Windows\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -354,6 +358,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TimetableDataPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UnoccupiedRoomsInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

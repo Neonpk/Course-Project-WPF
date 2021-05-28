@@ -60,6 +60,12 @@ namespace CourseProjectWPF.Windows
 
                     break;
 
+                case "buttonUnoccupiedRoomsInfo":
+
+                    page = new UnoccupiedRoomsInfoPage();
+
+                    break;
+
             }
             mainFrame.Navigate(page);
         }

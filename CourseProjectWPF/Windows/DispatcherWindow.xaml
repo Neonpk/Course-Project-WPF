@@ -76,9 +76,10 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             
-            <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Margin="0 0 10 0">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Margin="0 0 10 0" Height="50">
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Изменения в расписании" Margin="0 0 10 0" Click="NavigateFrame_ButtonClick" Name="buttonTimeTableChangesInfo" />
+                    <Button Content="Свободные аудитории" Margin="0 0 10 0" Click="NavigateFrame_ButtonClick" Name="buttonUnoccupiedRoomsInfo"/>
                     <Button Content="Отчёт о часах преподавателей" Click="NavigateFrame_ButtonClick" Name="buttonTeachersInfo"/>
                     <Button Content="Отчёт о загрузке аудиторий" Margin="10 0 0 0" Click="NavigateFrame_ButtonClick" Name="buttonAudincesInfo"/>
                 </StackPanel>
