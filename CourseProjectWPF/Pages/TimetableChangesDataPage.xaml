@@ -56,9 +56,10 @@
         <converters:EvenweekConverter x:Key="evenweekConverter"/>
         <converters:DateConverter x:Key="dateConverter"/>
         <converters:StatusLessonImageConverter x:Key="statusLessonImageConverter"/>
+        <converters:StatusLessonConverter x:Key="statusLessonConverter"/>
 
 
-        
+
     </Page.Resources>
 
     <DockPanel>
@@ -117,7 +118,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DockPanel VerticalAlignment="Center">
-                                <Image Source="{Binding completed, Converter={StaticResource statusLessonImageConverter}}" Height="32" Width="32" />
+                                <Image DockPanel.Dock="Top" Source="{Binding completed, Converter={StaticResource statusLessonImageConverter}}" Height="32" Width="32" />
+                                <TextBlock Text="{Binding completed, Converter={StaticResource statusLessonConverter}}" HorizontalAlignment="Center"/>
                             </DockPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

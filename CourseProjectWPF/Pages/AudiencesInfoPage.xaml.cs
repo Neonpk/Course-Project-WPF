@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using CourseProjectWPF.Model;
+using CourseProjectWPF.ViewModel;
 
 namespace CourseProjectWPF.Pages
 {
@@ -82,6 +83,7 @@ namespace CourseProjectWPF.Pages
 
         private bool UserFilter(object item)
         {
+
             if (String.IsNullOrEmpty(textBoxFilter.Text))
                 return true;
 
@@ -97,40 +99,35 @@ namespace CourseProjectWPF.Pages
                     return ((item as audience_loading).lesson_number.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
                 case 3:
-                    return GetStringFromDate((item as audience_loading).date).IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0;
-
-                case 4:
                     return System.Text.RegularExpressions.Regex.IsMatch(textBoxFilter.Text.ToLower(),
                         String.Format("^{0}$", (item as audience_loading).evenweek.ToLower()));
 
-                case 5:
+                case 4:
                     return ((item as audience_loading).teacher_name.IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-                case 6:
+                case 5:
                     return ((item as audience_loading).department_name.IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-                case 7:
+                case 6:
                     return ((item as audience_loading).position_name.IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-                case 8:
+                case 7:
                     return ((item as audience_loading).rank_name.IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-                case 9:
+                case 8:
                     return ((item as audience_loading).group_id.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-                case 10:
+                case 9:
                     return ((item as audience_loading).group_count_people.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
                 
-                case 11:
+                case 10:
                     return ((item as audience_loading).specialty_name.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-                case 12:
+                case 11:
                     return ((item as audience_loading).faculty_name.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-                case 13:
+                case 12:
                     return ((item as audience_loading).train_type_name.ToString().IndexOf(textBoxFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-
-
 
                 default:
                     return true;
@@ -143,6 +140,22 @@ namespace CourseProjectWPF.Pages
         }
 
         private void dataGridTimetable_Loaded(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(dataGridTimetable.ItemsSource);
+            view.Filter = UserFilter;
+        }
+
+        private void Search_ButtonCommand(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(dataGridTimetable.ItemsSource);
+
+            view.Filter = 
+                item => (item as audience_loading).date >= datePickerFrom.SelectedDate && (item as audience_loading).date <= datePickerTo.SelectedDate;
+
+            view.Refresh();
+        }
+
+        private void ResetFilters_ButtonCommand(object sender, RoutedEventArgs e)
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(dataGridTimetable.ItemsSource);
             view.Filter = UserFilter;

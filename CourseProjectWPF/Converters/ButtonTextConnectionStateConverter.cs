@@ -14,11 +14,11 @@ namespace CourseProjectWPF.Converters
         {
             if (((bool)value))
             {
-                return "Войти.";
+                return "Войти";
             }
             else
             {
-                return "В данный момент вход невозможен.";
+                return "В данный момент вход невозможен";
             }
 
         }

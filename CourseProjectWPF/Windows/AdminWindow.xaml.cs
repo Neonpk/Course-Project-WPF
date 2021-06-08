@@ -80,6 +80,22 @@ namespace CourseProjectWPF.Windows
 
             mainFrame.Navigate(page);
         }
+
+        private void PageLoad_ButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            Page page = null;
+
+            switch((sender as Button).Name)
+            {
+                case "weeklyLoadButton":
+                    page = new WeeklyloadingInfoPage();
+                    break;
+            }
+
+            mainFrame.Navigate(page);
+
+        }
     }
 
 }

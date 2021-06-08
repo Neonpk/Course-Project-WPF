@@ -1,0 +1,375 @@
+Структура папок
+Серийный номер тома: 1E54-3425
+C:.
+|   .gitattributes
+|   .gitignore
+|   CourseProjectWPF.sln
+|   output.doc
+|   README.md
+|   
++---CourseProjectWPF
+|   |   App.config
+|   |   App.xaml
+|   |   App.xaml.cs
+|   |   Connection.cs
+|   |   CourseProjectWPF.csproj
+|   |   icon.ico
+|   |   MainWindow.xaml
+|   |   MainWindow.xaml.cs
+|   |   packages.config
+|   |   
+|   +---bin
+|   |   +---Debug
+|   |   |   |   CourseProjectWPF.exe
+|   |   |   |   CourseProjectWPF.exe.config
+|   |   |   |   CourseProjectWPF.pdb
+|   |   |   |   EntityFramework.dll
+|   |   |   |   EntityFramework.SqlServer.dll
+|   |   |   |   EntityFramework.SqlServer.xml
+|   |   |   |   EntityFramework.xml
+|   |   |   |   
+|   |   |   \---ru
+|   |   |           EntityFramework.resources.dll
+|   |   |           EntityFramework.SqlServer.resources.dll
+|   |   |           
+|   |   \---Release
+|   +---Connected Services
+|   +---Converters
+|   |       AuthConverter.cs
+|   |       BorderConnectionStateConverter.cs
+|   |       ButtonTextConnectionStateConverter.cs
+|   |       DateConverter.cs
+|   |       EvenweekConverter.cs
+|   |       LabelConnectionStateConverter.cs
+|   |       LabelGroupConverter.cs
+|   |       LabelRoomConverter.cs
+|   |       LogoConverter.cs
+|   |       RowToIndexConverter.cs
+|   |       StatusLessonConverter.cs
+|   |       StatusLessonImageConverter.cs
+|   |       VisibilityConnectionState.cs
+|   |       VisibilityReverseBooleanConverter.cs
+|   |       
+|   +---Images
+|   |       book.png
+|   |       calendar.png
+|   |       completed.png
+|   |       door.png
+|   |       group.png
+|   |       mortarboard.png
+|   |       qr-code.png
+|   |       user.png
+|   |       waiting.png
+|   |       
+|   +---Model
+|   |       audiences.cs
+|   |       audience_loading.cs
+|   |       audience_msg.cs
+|   |       changedescription.cs
+|   |       Database.Context.cs
+|   |       Database.Context.tt
+|   |       Database.cs
+|   |       Database.Designer.cs
+|   |       Database.edmx
+|   |       Database.edmx.diagram
+|   |       Database.tt
+|   |       departments.cs
+|   |       dir_lessons.cs
+|   |       disciplines.cs
+|   |       faculties.cs
+|   |       groups.cs
+|   |       lesson_msg.cs
+|   |       positions.cs
+|   |       ranks.cs
+|   |       specialties.cs
+|   |       sysdiagrams.cs
+|   |       teachers.cs
+|   |       teachers_hours.cs
+|   |       timetable.cs
+|   |       timetable_changes.cs
+|   |       timetable_changesview.cs
+|   |       train_types.cs
+|   |       
+|   +---obj
+|   |   \---Debug
+|   |       |   .NETFramework,Version=v4.7.2.AssemblyAttributes.cs
+|   |       |   App.g.cs
+|   |       |   App.g.i.cs
+|   |       |   CourseProjectWPF.csproj.AssemblyReference.cache
+|   |       |   CourseProjectWPF.csproj.CopyComplete
+|   |       |   CourseProjectWPF.csproj.CoreCompileInputs.cache
+|   |       |   CourseProjectWPF.csproj.FileListAbsolute.txt
+|   |       |   CourseProjectWPF.csproj.GenerateResource.cache
+|   |       |   CourseProjectWPF.exe
+|   |       |   CourseProjectWPF.g.resources
+|   |       |   CourseProjectWPF.pdb
+|   |       |   CourseProjectWPF.Properties.Resources.resources
+|   |       |   CourseProjectWPF_Content.g.cs
+|   |       |   CourseProjectWPF_Content.g.i.cs
+|   |       |   CourseProjectWPF_MarkupCompile.cache
+|   |       |   CourseProjectWPF_MarkupCompile.lref
+|   |       |   DesignTimeResolveAssemblyReferences.cache
+|   |       |   DesignTimeResolveAssemblyReferencesInput.cache
+|   |       |   GeneratedInternalTypeHelper.g.cs
+|   |       |   GeneratedInternalTypeHelper.g.i.cs
+|   |       |   MainWindow.baml
+|   |       |   MainWindow.g.cs
+|   |       |   MainWindow.g.i.cs
+|   |       |   
+|   |       +---edmxResourcesToEmbed
+|   |       |   \---Model
+|   |       |           Database.csdl
+|   |       |           Database.msl
+|   |       |           Database.ssdl
+|   |       |           TimetableDBModel.csdl
+|   |       |           TimetableDBModel.msl
+|   |       |           TimetableDBModel.ssdl
+|   |       |           
+|   |       +---Pages
+|   |       |       AudiencesInfoPage.baml
+|   |       |       AudiencesInfoPage.g.cs
+|   |       |       AudiencesInfoPage.g.i.cs
+|   |       |       ChangeNotesDataPage.baml
+|   |       |       ChangeNotesDataPage.g.cs
+|   |       |       ChangeNotesDataPage.g.i.cs
+|   |       |       DepartmentsDataPage.baml
+|   |       |       DepartmentsDataPage.g.cs
+|   |       |       DepartmentsDataPage.g.i.cs
+|   |       |       DisciplinesDataPage.baml
+|   |       |       DisciplinesDataPage.g.cs
+|   |       |       DisciplinesDataPage.g.i.cs
+|   |       |       EditChangeNotesDataPage.baml
+|   |       |       EditChangeNotesDataPage.g.cs
+|   |       |       EditChangeNotesDataPage.g.i.cs
+|   |       |       EditDepartmentDataPage.baml
+|   |       |       EditDepartmentDataPage.g.cs
+|   |       |       EditDepartmentDataPage.g.i.cs
+|   |       |       EditDisciplineDataPage.baml
+|   |       |       EditDisciplineDataPage.g.cs
+|   |       |       EditDisciplineDataPage.g.i.cs
+|   |       |       EditFacultyDataPage.baml
+|   |       |       EditFacultyDataPage.g.cs
+|   |       |       EditFacultyDataPage.g.i.cs
+|   |       |       EditGroupsDataPage.baml
+|   |       |       EditGroupsDataPage.g.cs
+|   |       |       EditGroupsDataPage.g.i.cs
+|   |       |       EditRoomDataPage.baml
+|   |       |       EditRoomDataPage.g.cs
+|   |       |       EditRoomDataPage.g.i.cs
+|   |       |       EditSpecialtyDataPage.baml
+|   |       |       EditSpecialtyDataPage.g.cs
+|   |       |       EditSpecialtyDataPage.g.i.cs
+|   |       |       EditTeacherDataPage.baml
+|   |       |       EditTeacherDataPage.g.cs
+|   |       |       EditTeacherDataPage.g.i.cs
+|   |       |       EditTimetableDataPage.baml
+|   |       |       EditTimetableDataPage.g.cs
+|   |       |       EditTimetableDataPage.g.i.cs
+|   |       |       FacultiesDataPage.baml
+|   |       |       FacultiesDataPage.g.cs
+|   |       |       FacultiesDataPage.g.i.cs
+|   |       |       GroupsDataPage.baml
+|   |       |       GroupsDataPage.g.cs
+|   |       |       GroupsDataPage.g.i.cs
+|   |       |       MakeChangesTimetableDataPage.baml
+|   |       |       MakeChangesTimetableDataPage.g.cs
+|   |       |       MakeChangesTimetableDataPage.g.i.cs
+|   |       |       RoomsDataPage.baml
+|   |       |       RoomsDataPage.g.cs
+|   |       |       RoomsDataPage.g.i.cs
+|   |       |       SpecialtiesDataPage.baml
+|   |       |       SpecialtiesDataPage.g.cs
+|   |       |       SpecialtiesDataPage.g.i.cs
+|   |       |       TeachersDataPage.baml
+|   |       |       TeachersDataPage.g.cs
+|   |       |       TeachersDataPage.g.i.cs
+|   |       |       TeachersInfoPage.baml
+|   |       |       TeachersInfoPage.g.cs
+|   |       |       TeachersInfoPage.g.i.cs
+|   |       |       TeacherTimetableChangesDataPage.baml
+|   |       |       TeacherTimetableChangesDataPage.g.cs
+|   |       |       TeacherTimetableChangesDataPage.g.i.cs
+|   |       |       TeacherTimetableDataPage.baml
+|   |       |       TeacherTimetableDataPage.g.cs
+|   |       |       TeacherTimetableDataPage.g.i.cs
+|   |       |       TimetableChangesDataPage.baml
+|   |       |       TimetableChangesDataPage.g.cs
+|   |       |       TimetableChangesDataPage.g.i.cs
+|   |       |       TimetableDataPage.baml
+|   |       |       TimetableDataPage.g.cs
+|   |       |       TimetableDataPage.g.i.cs
+|   |       |       UnoccupiedRoomsInfoPage.baml
+|   |       |       UnoccupiedRoomsInfoPage.g.cs
+|   |       |       UnoccupiedRoomsInfoPage.g.i.cs
+|   |       |       WeeklyloadingInfoPage.baml
+|   |       |       WeeklyloadingInfoPage.g.cs
+|   |       |       WeeklyloadingInfoPage.g.i.cs
+|   |       |       
+|   |       +---TempPE
+|   |       |       Model.Database.Context.cs.dll
+|   |       |       Model.Database.cs.dll
+|   |       |       Model.Database.Designer.cs.dll
+|   |       |       Properties.Resources.Designer.cs.dll
+|   |       |       
+|   |       \---Windows
+|   |               AdminWindow.baml
+|   |               AdminWindow.g.cs
+|   |               AdminWindow.g.i.cs
+|   |               DispatcherWindow.baml
+|   |               DispatcherWindow.g.cs
+|   |               DispatcherWindow.g.i.cs
+|   |               TeacherWindow.baml
+|   |               TeacherWindow.g.cs
+|   |               TeacherWindow.g.i.cs
+|   |               
+|   +---Pages
+|   |       AudiencesInfoPage.xaml
+|   |       AudiencesInfoPage.xaml.cs
+|   |       ChangeNotesDataPage.xaml
+|   |       ChangeNotesDataPage.xaml.cs
+|   |       DepartmentsDataPage.xaml
+|   |       DepartmentsDataPage.xaml.cs
+|   |       DisciplinesDataPage.xaml
+|   |       DisciplinesDataPage.xaml.cs
+|   |       EditChangeNotesDataPage.xaml
+|   |       EditChangeNotesDataPage.xaml.cs
+|   |       EditDepartmentDataPage.xaml
+|   |       EditDepartmentDataPage.xaml.cs
+|   |       EditDisciplineDataPage.xaml
+|   |       EditDisciplineDataPage.xaml.cs
+|   |       EditFacultyDataPage.xaml
+|   |       EditFacultyDataPage.xaml.cs
+|   |       EditGroupsDataPage.xaml
+|   |       EditGroupsDataPage.xaml.cs
+|   |       EditRoomDataPage.xaml
+|   |       EditRoomDataPage.xaml.cs
+|   |       EditSpecialtyDataPage.xaml
+|   |       EditSpecialtyDataPage.xaml.cs
+|   |       EditTeacherDataPage.xaml
+|   |       EditTeacherDataPage.xaml.cs
+|   |       EditTimetableDataPage.xaml
+|   |       EditTimetableDataPage.xaml.cs
+|   |       FacultiesDataPage.xaml
+|   |       FacultiesDataPage.xaml.cs
+|   |       GroupsDataPage.xaml
+|   |       GroupsDataPage.xaml.cs
+|   |       MakeChangesTimetableDataPage.xaml
+|   |       MakeChangesTimetableDataPage.xaml.cs
+|   |       RoomsDataPage.xaml
+|   |       RoomsDataPage.xaml.cs
+|   |       SpecialtiesDataPage.xaml
+|   |       SpecialtiesDataPage.xaml.cs
+|   |       TeachersDataPage.xaml
+|   |       TeachersDataPage.xaml.cs
+|   |       TeachersInfoPage.xaml
+|   |       TeachersInfoPage.xaml.cs
+|   |       TeacherTimetableChangesDataPage.xaml
+|   |       TeacherTimetableChangesDataPage.xaml.cs
+|   |       TeacherTimetableDataPage.xaml
+|   |       TeacherTimetableDataPage.xaml.cs
+|   |       TimetableChangesDataPage.xaml
+|   |       TimetableChangesDataPage.xaml.cs
+|   |       TimetableDataPage.xaml
+|   |       TimetableDataPage.xaml.cs
+|   |       UnoccupiedRoomsInfoPage.xaml
+|   |       UnoccupiedRoomsInfoPage.xaml.cs
+|   |       WeeklyloadingInfoPage.xaml
+|   |       WeeklyloadingInfoPage.xaml.cs
+|   |       
+|   +---Properties
+|   |       AssemblyInfo.cs
+|   |       Resources.Designer.cs
+|   |       Resources.resx
+|   |       Settings.Designer.cs
+|   |       Settings.settings
+|   |       
+|   +---ValidationRules
+|   |       ComboboxSelectedItemRule.cs
+|   |       DescriptionRule.cs
+|   |       NamePersonRule.cs
+|   |       OnlyDigitsRule.cs
+|   |       
+|   +---ViewModel
+|   |       BaseViewModel.cs
+|   |       EmployeeViewModel.cs
+|   |       MainViewModel.cs
+|   |       RelayCommand.cs
+|   |       SpecialtyWeeklyViewModel.cs
+|   |       TeacherAuthViewModel.cs
+|   |       TeacherTimetableChangesViewModel.cs
+|   |       TeacherTimetableViewModel.cs
+|   |       TeacherWindowViewModel.cs
+|   |       UnoccupiedRoomsViewModel.cs
+|   |       
+|   \---Windows
+|           AdminWindow.xaml
+|           AdminWindow.xaml.cs
+|           DispatcherWindow.xaml
+|           DispatcherWindow.xaml.cs
+|           TeacherWindow.xaml
+|           TeacherWindow.xaml.cs
+|           
+\---packages
+    +---EntityFramework.6.2.0
+    |   |   .signature.p7s
+    |   |   EntityFramework.6.2.0.nupkg
+    |   |   
+    |   +---content
+    |   |   \---net40
+    |   |           App.config.transform
+    |   |           Web.config.transform
+    |   |           
+    |   +---lib
+    |   |   +---net40
+    |   |   |   |   EntityFramework.dll
+    |   |   |   |   EntityFramework.SqlServer.dll
+    |   |   |   |   EntityFramework.SqlServer.xml
+    |   |   |   |   EntityFramework.xml
+    |   |   |   |   
+    |   |   |   \---ru
+    |   |   |           EntityFramework.resources.dll
+    |   |   |           EntityFramework.SqlServer.resources.dll
+    |   |   |           EntityFramework.SqlServer.xml
+    |   |   |           EntityFramework.xml
+    |   |   |           
+    |   |   \---net45
+    |   |       |   EntityFramework.dll
+    |   |       |   EntityFramework.SqlServer.dll
+    |   |       |   EntityFramework.SqlServer.xml
+    |   |       |   EntityFramework.xml
+    |   |       |   
+    |   |       \---ru
+    |   |               EntityFramework.resources.dll
+    |   |               EntityFramework.SqlServer.resources.dll
+    |   |               EntityFramework.SqlServer.xml
+    |   |               EntityFramework.xml
+    |   |               
+    |   \---tools
+    |           about_EntityFramework.help.txt
+    |           EntityFramework.PowerShell.dll
+    |           EntityFramework.PowerShell.Utility.dll
+    |           EntityFramework.psd1
+    |           EntityFramework.psm1
+    |           init.ps1
+    |           install.ps1
+    |           migrate.exe
+    |           
+    \---EntityFramework.ru.6.2.0
+        |   .signature.p7s
+        |   EntityFramework.ru.6.2.0.nupkg
+        |   
+        \---lib
+            +---net40
+            |   \---ru
+            |           EntityFramework.resources.dll
+            |           EntityFramework.SqlServer.resources.dll
+            |           EntityFramework.SqlServer.xml
+            |           EntityFramework.xml
+            |           
+            \---net45
+                \---ru
+                        EntityFramework.resources.dll
+                        EntityFramework.SqlServer.resources.dll
+                        EntityFramework.SqlServer.xml
+                        EntityFramework.xml
+                        

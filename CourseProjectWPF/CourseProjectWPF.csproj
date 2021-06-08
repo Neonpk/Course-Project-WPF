@@ -67,12 +67,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BindingProxy\BindingProxy.cs" />
     <Compile Include="Converters\AuthConverter.cs" />
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\EvenweekConverter.cs" />
     <Compile Include="Converters\LabelGroupConverter.cs" />
     <Compile Include="Converters\LabelRoomConverter.cs" />
     <Compile Include="Converters\LogoConverter.cs" />
+    <Compile Include="Converters\RowToIndexConverter.cs" />
     <Compile Include="Converters\StatusLessonConverter.cs" />
     <Compile Include="Converters\StatusLessonImageConverter.cs" />
     <Compile Include="Converters\VisibilityConnectionState.cs" />
@@ -227,6 +229,9 @@
     <Compile Include="Pages\UnoccupiedRoomsInfoPage.xaml.cs">
       <DependentUpon>UnoccupiedRoomsInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\WeeklyloadingInfoPage.xaml.cs">
+      <DependentUpon>WeeklyloadingInfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValidationRules\ComboboxSelectedItemRule.cs" />
     <Compile Include="ValidationRules\DescriptionRule.cs" />
     <Compile Include="ValidationRules\NamePersonRule.cs" />
@@ -235,11 +240,15 @@
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\GroupWeeklyModel.cs" />
     <Compile Include="ViewModel\TeacherAuthViewModel.cs" />
     <Compile Include="ViewModel\TeacherTimetableChangesViewModel.cs" />
     <Compile Include="ViewModel\TeacherTimetableViewModel.cs" />
+    <Compile Include="ViewModel\TeacherWeeklyModel.cs" />
     <Compile Include="ViewModel\TeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\UnoccupiedRoomsViewModel.cs" />
+    <Compile Include="ViewModel\WeeklyloadingViewModel.cs" />
+    <Compile Include="ViewModel\WeeklyModel.cs" />
     <Compile Include="Windows\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -362,6 +371,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\UnoccupiedRoomsInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WeeklyloadingInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

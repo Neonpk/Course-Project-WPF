@@ -4,24 +4,18 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace CourseProjectWPF.Converters
 {
-    class LabelConnectionStateConverter : IValueConverter
+    class RowToIndexConverter : IValueConverter
     {
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
-            if (((bool)value))
-            {
-                return "Соединение с БД установлено";
-            }
-            else
-            {
-                return "Не удалось подключиться к базе данных";
-            }
-
+            DataGridRow row = value as DataGridRow;
+            return row.GetIndex() + 1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
