@@ -19,19 +19,82 @@ using System.ComponentModel;
 
 namespace CourseProjectWPF.Pages
 {
+
+    public class TeacherModel : CourseProjectWPF.ViewModel.BaseViewModel
+    {
+        public teachers Teacher { get; set; }
+
+        public double _hours;
+        public double Hours { get => _hours; set { _hours = value; OnPropertyChanged(nameof(Hours)); } }
+
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+    }
+
     /// <summary>
     /// Логика взаимодействия для TeachersInfoPage.xaml
     /// </summary>
     public partial class TeachersInfoPage : Page
     {
 
+        public ObservableCollection<TeacherModel> Teachers { get; set; }
+
+        public double GetHours(int teacherId)
+        {
+            //shitcode
+
+            var list = new List<int>();
+
+            var ch = Connection.Database.timetable_changes.Select(x=>x.timetable_id);
+
+            foreach(var t in Connection.Database.timetable)
+            {
+                if (ch.Contains(t.timetable_id) && Connection.Database.timetable_changes.FirstOrDefault(x => x.teacher_id == teacherId 
+                    && x.timetable_id == t.timetable_id) != null)
+
+                    list.Add(t.timetable_id);
+                else if (t.teacher_id == teacherId && !ch.Contains(t.timetable_id))
+                    list.Add(t.timetable_id);
+            }
+
+            return list.Count * 1.5;
+
+        }
+
+        public double GetHours(int teacherId, DateTime start, DateTime finish)
+        {
+
+            var list = new List<int>();
+
+            var ch = Connection.Database.timetable_changes.Select(x => x.timetable_id);
+
+            foreach (var t in Connection.Database.timetable)
+            {
+                if (ch.Contains(t.timetable_id) && Connection.Database.timetable_changes.FirstOrDefault(x => x.teacher_id == teacherId
+                    && x.timetable_id == t.timetable_id) is var sb && sb != null && sb.date >= start && sb.date <= finish )
+                    list.Add(t.timetable_id);
+                else if (t.teacher_id == teacherId && t.date >= start && t.date <= finish && !ch.Contains(t.timetable_id))
+                    list.Add(t.timetable_id);
+            }
+
+            return list.Count * 1.5;
+
+        }
+        
         public TeachersInfoPage(Window owner)
         {
 
             try
             {
                 InitializeComponent();
-                DataContext = Connection.Database.teachers_hours.ToList();
+
+                Teachers = new ObservableCollection<TeacherModel>(Connection.Database.teachers.ToList().Select(x => new TeacherModel
+                {
+                    Teacher = x,
+                    Hours = GetHours(x.teacher_id)
+                }));
+
+                DataContext = this;
 
             }
             catch(EntityException err)
@@ -80,7 +143,7 @@ namespace CourseProjectWPF.Pages
 
         private void textBoxFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(listBoxTeachersInfo.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView( (listBoxTeachersInfo.ItemsSource as ObservableCollection<teachers>) ).Refresh();
         }
 
         private void RefreshTeacherInfo_ButtonClick(object sender, RoutedEventArgs e)
@@ -112,5 +175,15 @@ namespace CourseProjectWPF.Pages
             ));
             
         }
+
+        private void CalculateTeacherHours_Command(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = ((listBoxTeachersInfo.ItemsSource as ICollectionView).CurrentItem) as TeacherModel;
+
+            selectedItem.Hours = GetHours(selectedItem.Teacher.teacher_id, selectedItem.StartDate, selectedItem.EndDate);
+
+        }
+
+
     }
 }

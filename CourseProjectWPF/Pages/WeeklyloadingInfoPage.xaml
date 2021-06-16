@@ -172,7 +172,7 @@
                         <StackPanel>
 
                             <ComboBox DockPanel.Dock="Top" Margin="0 10" ItemsSource="{Binding Teachers}" SelectedValuePath="teacher_id" 
-                                      SelectedValue="{Binding SelectedTeacherId}">
+                                      SelectedItem="{Binding SelectedTeacher}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -194,50 +194,84 @@
 
                                 <Button Margin="10 0 0 0" Content="Найти..." FontSize="15" Command="{Binding ButtonSearchCommand}"/>
                                 <Button Margin="10 0 0 0" Content="Сбросить фильтры" FontSize="15" Command="{Binding ButtonResetFiltersCommand}"/>
+                                <Button Margin="10 0 0 0" Content="Печать" FontSize="15" Command="{Binding ButtonPrintCommand}" 
+                                        CommandParameter="{Binding ElementName=dataGridWeeklyloading}"/>
 
                                 <CheckBox Margin="10 5 0 0" Content="Показывать воскресенье" IsChecked="{Binding CboxChecked}" x:Name="checkBoxshowSunDay"/>
 
+
+
                             </StackPanel>
 
+                            <DockPanel>
 
-                            <DataGrid DockPanel.Dock="Top" AutoGenerateColumns="False"
+                                <ScrollViewer>
+                                <StackPanel>
+
+                                    <Grid HorizontalAlignment="Left" Margin="10 20">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Content="Преподаватель:" Grid.Column="0" Grid.Row="0" FontSize="15" />
+                                        <TextBlock Text="{Binding SelectedTeacher.name}" TextDecorations="Underline" Grid.Column="1" Grid.Row="0" FontSize="15"/>
+
+                                        <Label Content="Кол-во часов:" Grid.Row="1" FontSize="15" />
+                                        <TextBlock Text="{Binding SumHours}" FontSize="15" TextDecorations="Underline" Grid.Column="1" Grid.Row="1"/>
+
+                                    </Grid>
+
+                                    <DataGrid DockPanel.Dock="Top" AutoGenerateColumns="False"
                                       ItemsSource="{Binding DataCollection}"
                                       IsReadOnly="True" Margin="10"
                                       CellStyle="{StaticResource Body_Content_DataGrid_Centering}"
-                                      x:Name="dataGridTimetable" FontSize="15"
+                                      x:Name="dataGridWeeklyloading" FontSize="15"
                                       >
 
-                                <DataGrid.Resources>
-                                    <bindingProxy:BindingProxy x:Key="proxybind" Data="{Binding }" />
-                                </DataGrid.Resources>
+                                        <DataGrid.Resources>
+                                            <bindingProxy:BindingProxy x:Key="proxybind" Data="{Binding }" />
+                                        </DataGrid.Resources>
 
-                                <DataGrid.RowHeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Margin="2" Text="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, 
+                                        <DataGrid.RowHeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Margin="2" Text="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, 
                                             Converter={StaticResource rowToIndexConverter}}"/>
-                                    </DataTemplate>
-                                </DataGrid.RowHeaderTemplate>
+                                            </DataTemplate>
+                                        </DataGrid.RowHeaderTemplate>
 
-                                <DataGrid.Columns>
+                                        <DataGrid.Columns>
 
-                                    <DataGridTextColumn Header="Понедельник" Binding="{Binding Monday}"/>
-                                    <DataGridTextColumn Header="Вторник" Binding="{Binding Tuesday}"/>
-                                    <DataGridTextColumn Header="Среда" Binding="{Binding Wednesday}"/>
-                                    <DataGridTextColumn Header="Четверг" Binding="{Binding Thursday}"/>
-                                    <DataGridTextColumn Header="Пятница" Binding="{Binding Friday}"/>
-                                    <DataGridTextColumn Header="Суббота" Binding="{Binding Saturday}"/>
+                                            <DataGridTextColumn Header="Понедельник" Binding="{Binding Monday}"/>
+                                            <DataGridTextColumn Header="Вторник" Binding="{Binding Tuesday}"/>
+                                            <DataGridTextColumn Header="Среда" Binding="{Binding Wednesday}"/>
+                                            <DataGridTextColumn Header="Четверг" Binding="{Binding Thursday}"/>
+                                            <DataGridTextColumn Header="Пятница" Binding="{Binding Friday}"/>
+                                            <DataGridTextColumn Header="Суббота" Binding="{Binding Saturday}"/>
 
-                                    <DataGridTextColumn Header="Воскресенье" 
+                                            <DataGridTextColumn Header="Воскресенье" 
                                                         Binding="{Binding Sunday, Mode=OneWay}" 
                                                         Visibility="{Binding Source={StaticResource proxybind}, 
                                                                     Path=Data.CboxChecked, Converter={StaticResource VisToBool}}"/>
 
-                                </DataGrid.Columns>
+                                        </DataGrid.Columns>
 
-                            </DataGrid>
+                                    </DataGrid>
+
+                                </StackPanel>
+
+                                </ScrollViewer>
+
+                            </DockPanel>
 
                         </StackPanel>
-
+                            
                     </DataTemplate>
 
                 </ContentControl.Resources>

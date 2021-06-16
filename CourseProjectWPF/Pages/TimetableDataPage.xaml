@@ -52,6 +52,7 @@
         <converters:StatusLessonImageConverter x:Key="statusLessonImageConverter"/>
         <converters:StatusLessonConverter x:Key="statusLessonConverter"/>
         <converters:VisibilityConnectionState x:Key="visibilityConverter"/>
+        <converters:VisibilityReverseBooleanConverter x:Key="reverseVisibilityConverter"/>
 
     </Page.Resources>
 
@@ -169,8 +170,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DockPanel VerticalAlignment="Center">
-                                <Button Click="MakeChanges_ButtonClick" FontSize="16" Content="Внести изменения" DockPanel.Dock="Top" Margin="0 2"/>
-                                <Button Click="ChangeData_ButtonClick" FontSize="16" Content="Корректировать" DockPanel.Dock="Top" Margin="0 2"/>
+                                <Button Click="MakeChanges_ButtonClick" FontSize="16" Content="Внести изменения" DockPanel.Dock="Top" Margin="0 2" Visibility="{Binding Timetable.completed, Converter={StaticResource reverseVisibilityConverter}}"/>
+                                <Button Click="ChangeData_ButtonClick" FontSize="16" Content="Корректировать" DockPanel.Dock="Top" Margin="0 2" Visibility="{Binding Timetable.completed, Converter={StaticResource reverseVisibilityConverter}}"/>
                                 <Button Click="RemoveRow_ButtonClick" FontSize="16" Content="Удалить" DockPanel.Dock="Top" Margin="0 2"/>
                             </DockPanel>
                         </DataTemplate>

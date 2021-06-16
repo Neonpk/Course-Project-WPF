@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CourseProjectWPF.ViewModel
@@ -22,8 +23,11 @@ namespace CourseProjectWPF.ViewModel
         private DateTime _dateTo;
         public DateTime DateTo { get => _dateTo; set { _dateTo = value; OnPropertyChanged(nameof(DateTo)); } }
 
-        private int _selectedTeacherid;
-        public int SelectedTeacherId { get => _selectedTeacherid; set { _selectedTeacherid = value; OnPropertyChanged(nameof(SelectedTeacherId)); } }
+        private teachers _selectedTeacher;
+        public teachers SelectedTeacher { get => _selectedTeacher; set { _selectedTeacher = value; OnPropertyChanged(nameof(SelectedTeacher)); } }
+
+        private double _sumHours;
+        public double SumHours { get => _sumHours; set { _sumHours = value; OnPropertyChanged(nameof(SumHours)); } }
 
         public List<teachers> Teachers { get; set; }
 
@@ -40,8 +44,9 @@ namespace CourseProjectWPF.ViewModel
                     CboxChecked = false;
                     DateFrom = DateTime.MinValue;
                     DateTo = DateTime.MinValue;
+                    SumHours = 0;
 
-                    SelectedTeacherId = -1;
+                    SelectedTeacher = null;
 
                     foreach (var item in DataCollection)
                         item.ClearFields();
@@ -57,6 +62,9 @@ namespace CourseProjectWPF.ViewModel
             {
                 return (_buttonSearchCommand ?? new RelayCommand(obj =>
                 {
+
+                    SumHours = 0;
+
                     // Clear fields
 
                     foreach (var item in DataCollection)
@@ -71,17 +79,46 @@ namespace CourseProjectWPF.ViewModel
                         if (timetableChanges.Contains(item.timetable_id))
                         {
                             var newItem = Connection.Database.timetable_changes.FirstOrDefault(
-                                x => x.timetable_id == item.timetable_id && x.teacher_id == SelectedTeacherId && x.date >= DateFrom && item.date <= DateTo);
+                                x => x.timetable_id == item.timetable_id && x.teacher_id == SelectedTeacher.teacher_id && x.date >= DateFrom && item.date <= DateTo);
 
                             FillInforation(newItem);
+
+                            if (newItem != null)
+                                SumHours += 1.5;
+
                         }
                         else
                         {
-                            if (item.teacher_id == SelectedTeacherId && item.date >= DateFrom && item.date <= DateTo)
+                            if (item.teacher_id == SelectedTeacher.teacher_id && item.date >= DateFrom && item.date <= DateTo)
+                            {
+                                SumHours += 1.5;
                                 FillInforation(item);
+                            }
+
                         }
                     }
 
+
+                }, x => true));
+            }
+        }
+
+        private ICommand _buttonPrintCommand;
+        public ICommand ButtonPrintCommand
+        {
+            get
+            {
+                return (_buttonPrintCommand ?? new RelayCommand(x =>
+                {
+
+                    // TODO: test
+
+                    PrintDialog printDialog = new PrintDialog();
+
+                    if (printDialog.ShowDialog() == true)
+                    {
+                        printDialog.PrintVisual((x as DataGrid), "test");
+                    }
 
                 }, x => true));
             }
