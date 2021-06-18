@@ -184,15 +184,20 @@
         </ComboBox>
 
 
-        <Label Content="День недели" FontSize="20"/>
+        <Label Content="Дата занятия" FontSize="20"/>
 
         <DatePicker SelectedDate="{Binding CurrentRow.date}" Text="Выберите дату" />
 
+        
+        <!--
+        
         <Label Content="Четность недели" FontSize="20"/>
 
         <ComboBox ItemsSource="{Binding Evenweeks}" SelectedValue="{Binding CurrentRow.evenweek}"
                   DisplayMemberPath="Key" SelectedValuePath="Value"/>
 
+        -->
+        
         <Label Content="Причина замены" FontSize="20" />
 
         <ComboBox ItemsSource="{Binding Changedescriptions}"

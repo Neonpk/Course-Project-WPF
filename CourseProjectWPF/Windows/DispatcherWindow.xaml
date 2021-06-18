@@ -62,11 +62,15 @@
         </Grid.RowDefinitions>
 
         <Border Grid.ColumnSpan="2" Background="#50C878">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Right">
-                <Run FontSize="30">Управление расписанием</Run>
-                <LineBreak/>
-                <Run FontSize="20">Вы авторизованы в качестве диспетчера</Run>
-            </TextBlock>
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Run FontSize="40" >Управление расписанием</Run>
+                </TextBlock>
+
+                <TextBlock HorizontalAlignment="Center">
+                    <Run FontSize="30">Вы авторизованы в качестве диспетчера</Run>
+                </TextBlock>
+            </StackPanel>
         </Border>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="10">

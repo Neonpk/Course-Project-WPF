@@ -47,31 +47,35 @@
         <DockPanel Margin="10" DockPanel.Dock="Top">
             <Label FontSize="18" Content="Применить фильтр" DockPanel.Dock="Top"/>
 
-            <ComboBox x:Name="comboboxFilterType" SelectedIndex="0">
-                <ComboBoxItem>По дисциплине</ComboBoxItem>
-                <ComboBoxItem>По кафедре</ComboBoxItem>
-            </ComboBox>
-
-            <TextBox 
-                FontSize="25"
-                DockPanel.Dock="Right" x:Name="textBoxFilter" TextChanged="textBoxFilter_TextChanged"/>
-        </DockPanel>
-
-        <DockPanel Margin="10" DockPanel.Dock="Top">
-            <Label FontSize="18" Content="Применить сортировку" DockPanel.Dock="Top"/>
-
             <StackPanel Orientation="Horizontal">
 
-
-                <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged" x:Name="comboboxFilterSortModeType" SelectedIndex="0">
-                    <ComboBoxItem>По возрастанию</ComboBoxItem>
-                    <ComboBoxItem>По убыванию</ComboBoxItem>
+                <ComboBox x:Name="comboboxFilterType" Height="40" SelectedIndex="0">
+                    <ComboBoxItem>По дисциплине</ComboBoxItem>
+                    <ComboBoxItem>По кафедре</ComboBoxItem>
                 </ComboBox>
 
-                <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged" x:Name="comboboxFilterSortFieldType" SelectedIndex="0">
-                    <ComboBoxItem Tag="discipline_name">По дисциплине</ComboBoxItem>
-                    <ComboBoxItem Tag="departments.department_name">По кафедре</ComboBoxItem>
-                </ComboBox>
+                <TextBox 
+                FontSize="25" Width="400" Height="40"
+                DockPanel.Dock="Right" x:Name="textBoxFilter" TextChanged="textBoxFilter_TextChanged"/>
+
+                <DockPanel Margin="10" DockPanel.Dock="Top">
+
+                    <StackPanel Orientation="Vertical">
+
+
+                        <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged" x:Name="comboboxFilterSortModeType" SelectedIndex="0">
+                            <ComboBoxItem>По возрастанию</ComboBoxItem>
+                            <ComboBoxItem>По убыванию</ComboBoxItem>
+                        </ComboBox>
+
+                        <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged" x:Name="comboboxFilterSortFieldType" SelectedIndex="0">
+                            <ComboBoxItem Tag="discipline_name">По дисциплине</ComboBoxItem>
+                            <ComboBoxItem Tag="departments.department_name">По кафедре</ComboBoxItem>
+                        </ComboBox>
+
+                    </StackPanel>
+
+                </DockPanel>
 
             </StackPanel>
 
@@ -93,10 +97,10 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
 
-                    <StackPanel Width="505" Height="480" Margin="10">
+                    <StackPanel Width="505" Height="360" Margin="10">
 
 
-                        <Image Width="200" Height="200" 
+                        <Image Width="100" Height="100" 
                                Source="../Images/book.png" Stretch="Uniform" Margin="0 20 0 0"/>
 
                         <Grid>

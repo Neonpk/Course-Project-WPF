@@ -99,10 +99,10 @@
         <Border Grid.ColumnSpan="2" Background="#e87e15">
             <StackPanel Margin="0 10">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Right">
-                <Run FontSize="30">Приветствуем,</Run>
-                <Run FontSize="30" Text="{Binding Teacher.name}"/>
+                <Run FontSize="35">Приветствуем,</Run>
+                <Run FontSize="35" Text="{Binding Teacher.name}"/>
                 </TextBlock>
-                <TextBlock FontSize="20" HorizontalAlignment="Center">Вы авторизованы в качестве преподавателя для заполнения журнала</TextBlock>
+                <TextBlock FontSize="30" HorizontalAlignment="Center">Вы авторизованы в качестве преподавателя для заполнения журнала</TextBlock>
             </StackPanel>
         </Border>
 
@@ -120,6 +120,8 @@
                       Color="Black" />
 
             </TreeView.Resources>
+
+            <TreeViewItem Header="Изменить пароль" x:Name="treeViewItemTeacherpasswd" Selected="treeViewItemTimetable_Selected"/>
 
             <TreeViewItem Header="Просмотр данных">
                 <TreeViewItem Header="Ваше расписание" x:Name="treeViewItemTimetable" Selected="treeViewItemTimetable_Selected"/>

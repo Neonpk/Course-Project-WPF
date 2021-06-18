@@ -53,28 +53,32 @@
 
             <DockPanel Margin="10">
                 <Label FontSize="18" Content="Применить фильтр" DockPanel.Dock="Top"/>
-                
-                <ComboBox x:Name="comboboxFilterType" ItemsSource="{Binding FiltersName, Mode=OneWay}" SelectedIndex="0" />
-                <TextBox TextChanged="textBoxFilter_TextChanged" FontSize="25" DockPanel.Dock="Right" x:Name="textBoxFilter"/>
-            </DockPanel>
-
-            <DockPanel Margin="10">
-                <Label FontSize="18" Content="Применить сортировку" DockPanel.Dock="Top"/>
 
                 <StackPanel Orientation="Horizontal">
 
+                    <ComboBox x:Name="comboboxFilterType" Height="40" ItemsSource="{Binding FiltersName, Mode=OneWay}" SelectedIndex="0" />
+                    <TextBox TextChanged="textBoxFilter_TextChanged" Width="400" Height="40" FontSize="25" DockPanel.Dock="Right" x:Name="textBoxFilter"/>
 
-                    <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged" x:Name="comboboxFilterSortModeType" SelectedIndex="0">
-                        <ComboBoxItem>По возрастанию</ComboBoxItem>
-                        <ComboBoxItem>По убыванию</ComboBoxItem>
-                    </ComboBox>
+                    <DockPanel Margin="10">
 
-                    <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged"  x:Name="comboboxFilterSortFieldType" SelectedIndex="0">
-                        <ComboBoxItem Tag="name">По имени</ComboBoxItem>
-                        <ComboBoxItem Tag="ranks.rank_name">По званию</ComboBoxItem>
-                        <ComboBoxItem Tag="departments.department_name">По кафедре</ComboBoxItem>
-                        <ComboBoxItem Tag="positions.position_name">По должности</ComboBoxItem>
-                    </ComboBox>
+                        <StackPanel Orientation="Vertical">
+
+
+                            <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged" x:Name="comboboxFilterSortModeType" SelectedIndex="0">
+                                <ComboBoxItem>По возрастанию</ComboBoxItem>
+                                <ComboBoxItem>По убыванию</ComboBoxItem>
+                            </ComboBox>
+
+                            <ComboBox SelectionChanged="comboboxFilterSort_SelectionChanged"  x:Name="comboboxFilterSortFieldType" SelectedIndex="0">
+                                <ComboBoxItem Tag="name">По имени</ComboBoxItem>
+                                <ComboBoxItem Tag="ranks.rank_name">По званию</ComboBoxItem>
+                                <ComboBoxItem Tag="departments.department_name">По кафедре</ComboBoxItem>
+                                <ComboBoxItem Tag="positions.position_name">По должности</ComboBoxItem>
+                            </ComboBox>
+
+                        </StackPanel>
+
+                    </DockPanel>
 
                 </StackPanel>
 

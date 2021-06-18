@@ -82,11 +82,17 @@
         <Frame Grid.Row="2" Grid.Column="2"  x:Name="mainFrame" x:FieldModifier="public"/>
 
         <Border Grid.ColumnSpan="2" Background="#eb0062">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Right">
-                <Run FontSize="30">Управление справочниками</Run>
-                <LineBreak/>
-                <Run FontSize="20">Вы авторизованы в качестве администратора</Run>
-            </TextBlock>
+            <StackPanel>
+                
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Run FontSize="40" >Управление справочниками</Run>
+                </TextBlock>
+
+                <TextBlock HorizontalAlignment="Center">
+                    <Run FontSize="30">Вы авторизованы в качестве администратора</Run>
+                </TextBlock>
+
+            </StackPanel>
         </Border>
 
         <TreeView Grid.Row="2" Margin="10" FontSize="18" FontWeight="SemiBold" Background="#50C878" >

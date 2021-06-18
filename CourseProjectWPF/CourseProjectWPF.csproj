@@ -208,6 +208,9 @@
     <Compile Include="Pages\SpecialtiesDataPage.xaml.cs">
       <DependentUpon>SpecialtiesDataPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TeacherChangePasswordPage.xaml.cs">
+      <DependentUpon>TeacherChangePasswordPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TeachersDataPage.xaml.cs">
       <DependentUpon>TeachersDataPage.xaml</DependentUpon>
     </Compile>
@@ -343,6 +346,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SpecialtiesDataPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TeacherChangePasswordPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -108,6 +108,7 @@
                 <DataGridTextColumn Header="Чётность недели" Binding="{Binding evenweek}" />
                 <DataGridTextColumn Header="Дата" Binding="{Binding date, Converter={StaticResource dateConverter}}" />
                 <DataGridTextColumn Header="Номер аудитории" Binding="{Binding room}" />
+
                 <DataGridTextColumn Header="Преподаватель" Binding="{Binding teacher_name}" />
                 <DataGridTextColumn Header="Дисциплина" Binding="{Binding discipline_name}" MinWidth="355"/>
                 <DataGridTextColumn Header="Номер пары" Binding="{Binding lesson_number}" MinWidth="355"/>

@@ -2,6 +2,7 @@
 using CourseProjectWPF.Windows;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,7 +64,6 @@ namespace CourseProjectWPF.Pages
                 discipline_id = SelectedRow.teacher_id,
                 lesson_number = SelectedRow.lesson_number,
                 date = SelectedRow.date,
-                evenweek = SelectedRow.evenweek,
                 group_id = SelectedRow.group_id,
 
                 audiences = Audiences.FirstOrDefault(x => x.room == SelectedRow.room),
@@ -114,6 +114,11 @@ namespace CourseProjectWPF.Pages
         {
             try
             {
+                var cal = new GregorianCalendar();
+                var weekNumber = cal.GetWeekOfYear(CurrentRow.date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+                CurrentRow.evenweek = weekNumber % 2 == 0;
+
                 Connection.Database.timetable_changes.Add(CurrentRow);
 
                 Connection.Database.SaveChanges();

@@ -2,14 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CourseProjectWPF.ViewModel
 {
+
+    // 
 
     public class TeacherWeeklyModel : BaseViewModel
     {
@@ -117,7 +124,14 @@ namespace CourseProjectWPF.ViewModel
 
                     if (printDialog.ShowDialog() == true)
                     {
-                        printDialog.PrintVisual((x as DataGrid), "test");
+                        Size pageSize = new Size(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight);
+
+                        StackPanel t = (x as StackPanel);
+
+                        t.Measure(pageSize);
+                        t.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
+
+                        printDialog.PrintVisual(t, "WeeklyloadingForPeriod");
                     }
 
                 }, x => true));

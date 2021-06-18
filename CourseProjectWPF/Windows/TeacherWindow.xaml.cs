@@ -44,6 +44,13 @@ namespace CourseProjectWPF.Windows
                     page = new TeacherTimetableChangesDataPage(new TeacherTimetableChangesViewModel((this.DataContext as TeacherWindowViewModel).Teacher));
 
                     break;
+
+                case "treeViewItemTeacherpasswd":
+
+                    page = new TeacherChangePasswordPage((this.DataContext as TeacherWindowViewModel).Teacher, this);
+
+                    break;
+
             }
 
 

@@ -71,20 +71,25 @@
         <DockPanel Margin="10" DockPanel.Dock="Top">
             <Label FontSize="18" Content="Применить фильтр" DockPanel.Dock="Top"/>
 
-            <ComboBox x:Name="comboboxFilterType" SelectedIndex="0">
-                <ComboBoxItem>По номеру группы</ComboBoxItem>
-                <ComboBoxItem>По номеру аудитории</ComboBoxItem>
-                <ComboBoxItem>По имени преподавателя</ComboBoxItem>
-                <ComboBoxItem>По названию дисциплины</ComboBoxItem>
-                <ComboBoxItem>По номеру пары</ComboBoxItem>
-                <ComboBoxItem>По дате</ComboBoxItem>
-                <ComboBoxItem>По чётности недели</ComboBoxItem>
-            </ComboBox>
+            <StackPanel Orientation="Horizontal">
 
-            <TextBox 
+                <ComboBox x:Name="comboboxFilterType" SelectedIndex="0">
+                    <ComboBoxItem>По номеру группы</ComboBoxItem>
+                    <ComboBoxItem>По номеру аудитории</ComboBoxItem>
+                    <ComboBoxItem>По имени преподавателя</ComboBoxItem>
+                    <ComboBoxItem>По названию дисциплины</ComboBoxItem>
+                    <ComboBoxItem>По номеру пары</ComboBoxItem>
+                    <ComboBoxItem>По дате</ComboBoxItem>
+                    <ComboBoxItem>По чётности недели</ComboBoxItem>
+                </ComboBox>
+
+                <TextBox 
                 TextChanged="textBoxFilter_TextChanged"
-                FontSize="25"
+                FontSize="25" Width="400"
                 DockPanel.Dock="Right" x:Name="textBoxFilter"/>
+
+            </StackPanel>
+
         </DockPanel>
 
         <DataGrid DockPanel.Dock="Top" AutoGenerateColumns="False"

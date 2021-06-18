@@ -3,6 +3,7 @@ using CourseProjectWPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -118,6 +119,8 @@ namespace CourseProjectWPF.Pages
         {
             try
             {
+                
+                // Доп. проверки
 
                 if (EditReferenceRow != null)
                 {
@@ -136,14 +139,43 @@ namespace CourseProjectWPF.Pages
                     EditReferenceRow.lesson_number = CurrentRow.lesson_number;
                     EditReferenceRow.dir_lessons = CurrentRow.dir_lessons;
 
-                    EditReferenceRow.evenweek = CurrentRow.evenweek;
                     EditReferenceRow.date = CurrentRow.date;
+
+                    var cal = new GregorianCalendar();
+                    var weekNumber = cal.GetWeekOfYear(CurrentRow.date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+
+                    EditReferenceRow.evenweek = weekNumber % 2 == 0;
 
                 }
                 else
                 {
                     Connection.Database.timetable.Add(CurrentRow);
                 }
+
+
+                // Ограничение на добавление записи 
+
+                // При создании записи
+
+                if ((Connection.Database.timetable.Any(x => x.date == CurrentRow.date
+                 && x.lesson_number == CurrentRow.lesson_number && x.room == CurrentRow.room)
+                ||
+                Connection.Database.timetable.Any(x => x.date == CurrentRow.date
+                && x.lesson_number == CurrentRow.lesson_number && x.teacher_id == CurrentRow.teacher_id))
+                &&
+                EditReferenceRow is null                                
+                )
+                {
+
+                    Connection.Database.timetable.Remove(CurrentRow);
+
+                    MessageBox.Show("Занятие уже было запланировано по этим критериям.", "Не добавлено.", 
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Сохранение
 
                 Connection.Database.SaveChanges();
 
